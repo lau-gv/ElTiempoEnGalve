@@ -33,11 +33,21 @@ async function getAllByIndex(table_name: string, indexName: string, value: strin
       return queryResponse.Items;
 }
 
-async function insertDataOnDynamo(tableName: string, item: any, dbClient: DynamoDBClient): 
-Promise<PutItemCommandOutput | undefined>{
+async function updateDataOnDynamo(tableName: string, item: any, dbClient: DynamoDBClient): 
+Promise<PutItemCommandOutput>{
   const params = new PutItemCommand({
       TableName: tableName,
       Item: marshall(item)
+  });    
+  return await dbClient.send(params);
+}
+
+async function insertDataOnDynamo(tableName: string, item: any, dbClient: DynamoDBClient, partitionKey : string,  sortKey : string): 
+Promise<PutItemCommandOutput>{
+  const params = new PutItemCommand({
+      TableName: tableName,
+      Item: marshall(item),
+      ConditionExpression : `attribute_not_exists(${partitionKey}) AND attribute_not_exists(${sortKey})`
   });    
   return await dbClient.send(params);
 }

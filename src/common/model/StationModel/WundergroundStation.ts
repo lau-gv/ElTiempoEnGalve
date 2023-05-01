@@ -15,7 +15,7 @@ export class WundergroundStation implements WeatherStation{
     formatData(stationId: string, parsedData: any) {
         const data : StationData = {
             id: stationId,
-            datetime: parsedData.spainTime,
+            datadatetime: parsedData.spainTime,
             authStation: this.getAuth(),
             temperature: this.TwoDecimals((parseFloat(parsedData.tempf) - 32) * 5/9),
             humidity:  parsedData.humidity,

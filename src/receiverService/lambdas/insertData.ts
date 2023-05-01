@@ -7,7 +7,7 @@ const dbClient = new DynamoDBClient({});
 
 export async function handler(event: any, context: Context): Promise<any>{
 
-    console.log(event.Payload.body);
-    insertData(event, TABLE_NAME, dbClient);
+    //console.log(event.Payload.body);
+    return await insertData(event, TABLE_NAME, dbClient);
 }
 

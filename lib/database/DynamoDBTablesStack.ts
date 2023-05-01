@@ -69,7 +69,7 @@ export class DynamoDBTablesStack extends Stack{
   
       this.stationDataTable = new Table(this, `${STATION_DATA_TABLE_NAME}`, {
           partitionKey: { name: 'id', type: AttributeType.STRING },
-          sortKey: {name: 'datetime', type: AttributeType.STRING},
+          sortKey: {name: 'datadatetime', type: AttributeType.STRING},
           tableName: STATION_DATA_TABLE_NAME,
           //billingMode: BillingMode.PROVISIONED,
           //billingMode: BillingMode.PAY_PER_REQUEST
