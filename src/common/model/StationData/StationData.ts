@@ -9,15 +9,16 @@ interface StationData {
     baromrelhpa: number;  //presion relativa (hpa)
     baromabshpa: number; //presion absoluta (hpa)
     rainrateinmm:number; //indica la tasa de precipitación actual en mm por hora.
-    eventraininmm?: number; // cantidad total de lluvia desde el inicio del evento en pulgadas (mm).
+    eventraininmm?: number; // cantidad total de lluvia desde el inicio del evento en mm (mm).
     hourlyraininmm: number;
     dailyraininmm: number;
     weeklyraininmm: number;
     monthlyraininmm: number;
+    yearlyrainin: number;
     winddir: number; // dirección del viento en grados (°) (59).
-    windspeekmh: number; //velocidad del viento en km por hora (mph) (2.24).
-    windguskmh: number; // ráfaga máxima de viento en millas por hora (mph) (3.36).
-    maxdailygust: number; //ráfaga máxima diaria de viento en millas por hora (mph) (13.65).
+    windspeedkmh: number; //velocidad del viento en km por hora (mph) (2.24).
+    windguskmh: number; // ráfaga máxima de viento en km por hora (mph) (3.36).
+    maxdailygust: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
     solarradiation: number; //radiación solar en vatios por metro cuadrado (W/m2) (567.79).
     uv: number; //índice ultravioleta (UV) (5).
     lowbatt: number; //estado de la batería de la estación meteorológica (0 indica que la batería está baja y 1 que está bien).
