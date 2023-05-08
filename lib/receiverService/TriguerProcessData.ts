@@ -45,6 +45,7 @@ export class TriguerProcessdata extends Construct {
       const pipeRole = new Role(this, 'PipeRole', {
         assumedBy: new ServicePrincipal('pipes.amazonaws.com'),
       });
+      
         pipeRole.addToPolicy(sourcePolicy);
         pipeRole.addToPolicy(targetPolicy);
     
