@@ -1,6 +1,6 @@
-# Welcome to your CDK TypeScript project
+# El tiempo en Galve API CDK TypeScript project
 
-This is a blank project for CDK development with TypeScript.
+Esta es la API del proyecto, está realizada con AWS CDK y typescript
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
