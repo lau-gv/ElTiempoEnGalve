@@ -51,6 +51,9 @@ Una vez descargado / clonado el proyecto:
 * `Simple Queue Service (SQS)`
 * `Dynamod DB`
 * `EventBridge`
+* `Cognito`
+* `Route53`
+* `AWS Certificate Manager`
 
 
 ## El tiempo en Galve API CDK TypeScript project

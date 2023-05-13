@@ -17,8 +17,6 @@
             ],
             "env": {
                 "AWS_REGION":"eu-west-3",
-                //"TABLE_NAME":"SpacesTable",
-                //"PRIMARY_KEY": "spaceId",
             }
         }
     ]
