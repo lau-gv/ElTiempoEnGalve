@@ -27,7 +27,7 @@ export class EcowittStation implements WeatherStation{
             monthlyraininmm: this.TwoDecimals(parseFloat(parsedData.monthlyrainin)* 25.4),
             yearlyraininmm: this.TwoDecimals(parseFloat(parsedData.yearlyrainin)* 25.4),
             winddir: parseFloat(parsedData.winddir), 
-            windspeekmh: this.TwoDecimals(parseFloat(parsedData.windspeedmph) * 1.60934), 
+            windspeedkmh: this.TwoDecimals(parseFloat(parsedData.windspeedmph) * 1.60934), 
             windguskmh: this.TwoDecimals(parseFloat(parsedData.windgustmph) * 1.60934), 
             maxdailygust: this.TwoDecimals(parseFloat(parsedData.maxdailygust) * 1.60934), 
             solarradiation: parsedData.solarradiation, 
