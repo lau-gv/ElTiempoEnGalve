@@ -50,7 +50,7 @@ Una vez descargado / clonado el proyecto:
 * `StepFunctions`
 * `Simple Queue Service (SQS)`
 * `Dynamod DB`
-* `Dynamod DB`
+* `EventBridge`
 
 
 ## El tiempo en Galve API CDK TypeScript project
