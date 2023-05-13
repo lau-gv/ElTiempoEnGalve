@@ -14,6 +14,7 @@ interface StationData {
     dailyraininmm: number;
     weeklyraininmm: number;
     monthlyraininmm: number;
+    yearlyraininmm: number;
     winddir: number; // dirección del viento en grados (°) (59).
     windspeedkmh: number; //velocidad del viento en km por hora (mph) (2.24).
     windguskmh: number; // ráfaga máxima de viento en km por hora (mph) (3.36).
