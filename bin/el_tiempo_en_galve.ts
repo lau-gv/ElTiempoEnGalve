@@ -12,8 +12,3 @@ const receiverServiceStack = new ReceiverServiceStack(app, 'ReceiverService', {
   stationDataTable: databaseStack.stationDataTable,
   stationTable: databaseStack.stationTable
 });
-
-const prueba = new ReceiverServiceStack(app, 'ReceiverService', {
-  stationDataTable: databaseStack.stationDataTable,
-  stationTable: databaseStack.stationTable
-});
