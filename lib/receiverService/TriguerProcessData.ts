@@ -45,8 +45,9 @@ export class TriguerProcessdata extends Construct {
       const pipeRole = new Role(this, 'PipeRole', {
         assumedBy: new ServicePrincipal('pipes.amazonaws.com'),
       });
-        pipeRole.addToPolicy(sourcePolicy);
-        pipeRole.addToPolicy(targetPolicy);
+      
+      pipeRole.addToPolicy(sourcePolicy);
+      pipeRole.addToPolicy(targetPolicy);
     
       //Ahora debemos crear nuestro pipe! Solo se puede con constructor L1. Por eso hemos tenido que crear tanta morralla de roles.
       //https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_pipes-readme.html Aquí nos lo confirma la documentación.

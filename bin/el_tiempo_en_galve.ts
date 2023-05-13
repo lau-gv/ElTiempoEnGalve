@@ -6,7 +6,14 @@ import { ReceiverServiceStack } from '../lib/receiverService/ReceiverServiceStac
 
 const app = new cdk.App();
 const databaseStack = new DynamoDBTablesStack(app, 'DynamoDBTableStack');
+
+
 const receiverServiceStack = new ReceiverServiceStack(app, 'ReceiverService', {
   stationDataTable: databaseStack.stationDataTable,
   stationTable: databaseStack.stationTable
-})
+});
+
+const prueba = new ReceiverServiceStack(app, 'ReceiverService', {
+  stationDataTable: databaseStack.stationDataTable,
+  stationTable: databaseStack.stationTable
+});
