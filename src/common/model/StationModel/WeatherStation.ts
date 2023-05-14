@@ -5,13 +5,11 @@ interface WeatherStation{
 }
 
 interface Station {
-    user: string;
+    userId: string;
     id: string;
     authStation: string;
-    nombre: string;
-    localizacion: {
-        "latitud": number,
-        "longitud": number,
-    };
-    tipo: string;
+    name: string;
+    location: string;
+    type: string;
 }
+

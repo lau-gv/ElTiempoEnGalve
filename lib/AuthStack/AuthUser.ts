@@ -14,7 +14,7 @@ import { CfnOutput } from "aws-cdk-lib";
 
 export class AuthUser extends Construct {
 
-    private userPool : UserPool
+    public userPool : UserPool
     private userPoolclient: UserPoolClient;
 
     constructor(scope: Construct, id: string){

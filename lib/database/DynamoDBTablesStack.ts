@@ -16,14 +16,7 @@ export class DynamoDBTablesStack extends Stack{
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
 
-        this.userTable = new Table(this, USERTABLE_NAME, {
-          partitionKey: { name: 'id', type: AttributeType.STRING },
-          tableName: USERTABLE_NAME,
-          //billingMode: BillingMode.PROVISIONED,
-          //billingMode: BillingMode.PAY_PER_REQUEST
-          removalPolicy: RemovalPolicy.RETAIN
-        });
-      
+
     //Quiero tener índices para la localización y para el usuario (así poder buscar todas las staciones de una localización
     //y todas las estaciones de un usuario) https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/SecondaryIndexes.html
     //Para esto, se usan índices (y la clave de ordenación?);
@@ -41,7 +34,7 @@ export class DynamoDBTablesStack extends Stack{
 
       this.stationTable = new Table(this, `${STATION_TABLE_NAME}`, {
         tableName: STATION_TABLE_NAME,
-        partitionKey: { name: 'user', type: AttributeType.STRING },
+        partitionKey: { name: 'userId', type: AttributeType.STRING },
         sortKey: {name: 'id', type: AttributeType.STRING},
         //billingMode: BillingMode.PROVISIONED,
         //billingMode: BillingMode.PAY_PER_REQUEST,
@@ -76,11 +69,6 @@ export class DynamoDBTablesStack extends Stack{
           removalPolicy: RemovalPolicy.RETAIN
         });
 
-        this.userTable.autoScaleWriteCapacity({ minCapacity: 5, maxCapacity: 25 })
-          .scaleOnUtilization({targetUtilizationPercent: 90});;
-        this.userTable.autoScaleReadCapacity({ minCapacity: 5, maxCapacity: 25 })
-          .scaleOnUtilization({targetUtilizationPercent: 90});
-        
         this.stationTable.autoScaleWriteCapacity({ minCapacity: 5, maxCapacity: 25 })
           .scaleOnUtilization({targetUtilizationPercent: 90});
         this.stationTable.autoScaleReadCapacity({ minCapacity: 5, maxCapacity: 25 })

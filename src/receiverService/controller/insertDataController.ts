@@ -2,10 +2,10 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { insertStationData } from "../../common/services/repository/EstacionRepository/DynamoDataStationDB";
 
 
-export async function insertData(event: any, TABLE_NAME: string, dbClient : DynamoDBClient){    
+export async function insertData(event: any, TABLE_NAME: string){    
     try{
         const body= JSON.parse(event.Payload.body);
-        await insertStationData(TABLE_NAME, body, dbClient);
+        await insertStationData(TABLE_NAME, body);
         return  {
             "statusCode": 201,
             "body": body

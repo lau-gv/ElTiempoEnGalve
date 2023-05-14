@@ -1,0 +1,56 @@
+
+@endpoint = https://487xdfzgh5.execute-api.eu-west-3.amazonaws.com/prod
+@token = eyJraWQiOiJvdXZmVnYyR3VMTUtwb0Q4VDgzVFpmcXpibmI2K21OMHNmdGdmc0xSdUtRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI2MWYxNGNmNC00NTliLTRkMDUtODI2OS1lNGFhN2E5NWVhYmYiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LXdlc3QtMy5hbWF6b25hd3MuY29tXC9ldS13ZXN0LTNfSktRbWNnUmQ0IiwiY29nbml0bzp1c2VybmFtZSI6ImxhdWxpZXR0Iiwib3JpZ2luX2p0aSI6IjMwNDNkZmY4LTc0ZTQtNDI3OC04NDQ2LTdiOTM1YWQxOTRiOCIsImF1ZCI6IjFkMGVhZWpnM24zdGZkMXRsM3Yzb2YwNmk2IiwiZXZlbnRfaWQiOiJhZWI3MjAzOC03NmYzLTRiNjAtOWE0Mi01ZWYwOWJjMGEyNDAiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4NDA5NzM2NywiZXhwIjoxNjg0MTAwOTY3LCJpYXQiOjE2ODQwOTczNjcsImp0aSI6ImIxNGViYzI3LTgxNmEtNDE1MS1hZDVkLTlhMDhjYmYyOTQxNSIsImVtYWlsIjoibGF1cmFnaW1lbm9jcEBnbWFpbC5jb20ifQ.R5E8yn1vNqXDQOX-rur92mRRyzlU1Bea7XnpqWxRQSAyyZNvHOIX3avjsjul7Wnlz7SBgMfTR2X7v5P603Rzm0KeVUeQ_71zjR9JopAhtNYnaHh3Ca4sAvlbOoKy_EEtRq9n7-fAfflxuYkKONRWtEpRn8wXhieDA1njHar1TEVHmVFdBLbAAicIcsPE0UJMpzh7chXy6PpR3JobrRvqiq1X_5EWHZpd1N4sSD6db1Q_6v94ZsBdLjEWcJpy13wsm3QGpIeFOx6icRZUb4P5gpTYLd6BkjiumFS7kwJrx00YYbRKlr6lwkzXTDFNGSythT-lud1KNXWEw80M90DKgw
+GET {{endpoint}}/station
+Authorization: {{token}}
+
+###
+
+POST  {{endpoint}}/station
+Authorization: {{token}}
+Content-Type: Application/Json
+
+{   
+  "userId": "f76e842b-f98d-4f65-b89d-60cb9f9ad253",
+  "authStation": "IGALVE1",
+  "name": "LauraStation",
+  "type": "wunderground",
+  "location" : "idLocalizacionStation"
+}
+
+###
+
+
+DELETE  {{endpoint}}/station
+Authorization: {{token}}
+Content-Type: Application/Json
+
+{   
+  "userId": "f76e842b-f98d-4f65-b89d-60cb9f9ad253",
+  "id": "39c32fd9-7999-46e3-9054-d5ad7c9cfff4",
+  "authStation": "IGALVE1",
+  "name": "LauraStationGalve",
+  "type": "wunderground",
+  "location" : "idLocalizacionStation"
+}
+
+###
+
+PUT  {{endpoint}}/station
+Authorization: {{token}}
+Content-Type: Application/Json
+
+{   
+  "userId": "f76e842b-f98d-4f65-b89d-60cb9f9ad253",
+  "id": "eb39c4d3-7938-4997-a207-15d550e7f92f",
+  "authStation": "599E78B1B5EA0911BF1EE9940954FFA2",
+  "name": "LauraStationGalve",
+  "type": "wunderground",
+  "location" : "idLocalizacionStation"
+}
+###
+
+GET   {{endpoint}}/station?userId=f76e842b-f98d-4f65-b89d-60cb9f9ad253
+Authorization: {{token}}
+
+###

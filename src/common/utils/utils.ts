@@ -1,14 +1,27 @@
-import { APIGatewayProxyEvent } from "aws-lambda";;
+import { APIGatewayProxyEvent } from "aws-lambda";
 import * as querystring  from 'querystring';
+import { JsonError } from "./Validator";
+import { randomUUID } from "crypto";
+
+export function createRandomId(){
+    return randomUUID();
+}
 
 
-
-export function generateRandomId(){
-    return Math.random().toString(40).slice(2);
+export function parseJSON(arg: string){
+    try {
+        return JSON.parse(arg);
+    } catch (Error : any) {
+        throw new JsonError(Error.message)
+    }
 }
 
 export function getEventBody(event: APIGatewayProxyEvent){
-    return typeof event.body == 'object'? event.body: getEventBodyVariableHeaders(event);
+    try {
+        typeof event.body == 'object'? event.body: getEventBodyVariableHeaders(event);  
+    } catch (Error : any) {
+        throw new JsonError(Error.message)
+    }
 }
 
 export function getEventBodyVariableHeaders(event: APIGatewayProxyEvent){
@@ -23,6 +36,8 @@ export function getEventBodyVariableHeaders(event: APIGatewayProxyEvent){
     } else if (event.headers['content-type'] === 'application/x-www-form-urlencoded'
     || event.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
         return JSON.parse(JSON.stringify(querystring.parse(event.body)));
+    }else{
+        return {}
     }
 }
 
