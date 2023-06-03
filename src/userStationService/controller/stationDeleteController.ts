@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 import { deleteStationDynamo } from "../../common/services/repository/EstacionRepository/DynamoStationDB";
 import { MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
 import { parseJSON } from "../../common/utils/utils";
+import { WeatherStationModel } from "../model/WeatherStationModel";
 
 export async function deleteStation(event: APIGatewayProxyEvent, tableName : string){
 
@@ -37,7 +38,7 @@ export async function deleteStation(event: APIGatewayProxyEvent, tableName : str
 
 function validateAsDeleteStation(arg: any){
 
-    const allowedFields = ['userId', 'id', 'authStation', 'key', 'location', 'name', 'type'];
+    const allowedFields = ['userId', 'stationId', 'authStation', 'key', 'location', 'name', 'type'];
 
     for (const field in arg) {
         if (!allowedFields.includes(field)) {
@@ -48,6 +49,6 @@ function validateAsDeleteStation(arg: any){
         throw new MissingFieldError('userId')
     }
     if ((arg as WeatherStationModel).stationId == undefined) {
-        throw new MissingFieldError('id')
+        throw new MissingFieldError('stationId')
     }
 }
