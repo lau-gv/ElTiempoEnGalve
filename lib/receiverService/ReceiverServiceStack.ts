@@ -17,7 +17,7 @@ interface ReceiverServiceStackProps extends StackProps {
 
         //Aquí creamos nuestros constructores.
         //Primero el api Receiver.
-        const apiReceiver : ApiReceiver = new ApiReceiver(this, 'ApiReceiverService');
+        const apiReceiver : ApiReceiver = new ApiReceiver(this, 'apiReceiverService');
         const processReceiverdata : ProcessReceiverData = new ProcessReceiverData(this, 'processReceiverData', {
             stationDataTable: props.stationDataTable,
             stationTable: props.stationTable

@@ -25,7 +25,7 @@ export class ProcessReceiverData extends Construct {
     constructor(scope: Construct, id: string, props: ProcessReceiverDataProps){
       super(scope, id);
 
-      const authorizeStationLambda = new NodejsFunction(scope, 'authorizeStationLambda', {
+      const authorizeStationLambda = new NodejsFunction(scope, 'AuthorizeStationLambda', {
           runtime: Runtime.NODEJS_18_X,
           handler: 'handler',
           entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'authorizeStation.ts')),
@@ -34,7 +34,7 @@ export class ProcessReceiverData extends Construct {
             }
         });
 
-      const insertStationDataLambda = new NodejsFunction(scope, 'insertStationDataLambda', {
+      const insertStationDataLambda = new NodejsFunction(scope, 'InsertStationDataLambda', {
           runtime: Runtime.NODEJS_18_X,
           handler: 'handler',
           entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'insertData.ts')),
@@ -44,7 +44,7 @@ export class ProcessReceiverData extends Construct {
         });
 
         
-      const notifyDataLambda = new NodejsFunction(scope, 'notifyDataLambda', {
+      const notifyDataLambda = new NodejsFunction(scope, 'NotifyDataLambda', {
         runtime: Runtime.NODEJS_18_X,
         handler: 'handler',
         entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'notifyLambda.ts')),
@@ -64,13 +64,13 @@ export class ProcessReceiverData extends Construct {
           resultPath: '$.authorizationResult',
         });
     
-      const insertDataStationTask = new task.LambdaInvoke(this, 'insertDataStationSetpfunctionsTask', {
+      const insertDataStationTask = new task.LambdaInvoke(this, 'InsertDataStationSetpfunctionsTask', {
         lambdaFunction: insertStationDataLambda,
         inputPath: '$.authorizationResult',
         resultPath: '$.insertDataResult',
       });
 
-      const notifyDataTask = new task.LambdaInvoke(this, 'notifyDataTask', {
+      const notifyDataTask = new task.LambdaInvoke(this, 'NotifyDataTask', {
         lambdaFunction: notifyDataLambda,
         inputPath: '$.authorizationResult',
         resultPath: '$.notifyResult',
@@ -82,7 +82,7 @@ export class ProcessReceiverData extends Construct {
         .branch(insertDataStationTask)
         .branch(notifyDataTask);
 
-      const condition = new Choice(scope, 'IsAuthorized')
+      const condition = new Choice(scope, 'isAuthorized')
         .when(Condition.stringEquals('$.authorizationResult.Payload.authorization', "true"), parallel)
         .otherwise(successState);
 

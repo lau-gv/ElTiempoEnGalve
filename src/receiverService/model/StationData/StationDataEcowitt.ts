@@ -1,3 +1,4 @@
+/**En realidad no se utiliza. Pero me es util */
 interface stationDataEcowitt{
     PASSKEY: string;
     stationtype: string;

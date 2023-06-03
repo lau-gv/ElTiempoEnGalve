@@ -46,9 +46,18 @@ Promise<PutItemCommandOutput>{
 
   const dbClient = new DynamoDBClient({});
 
+  const marshallOptions = {
+    // Whether to automatically convert empty strings, blobs, and sets to `null`.
+    convertEmptyValues: false, // false, by default.
+    // Whether to remove undefined values while marshalling.
+    removeUndefinedValues: true, // false, by default.
+    // Whether to convert typeof object to map attribute.
+    convertClassInstanceToMap: true, // false, by default. <-- HERE IS THE ISSUE
+};
+
   const params = new PutItemCommand({
       TableName: tableName,
-      Item: marshall(item),
+      Item: marshall(item, marshallOptions),
       ConditionExpression : `attribute_not_exists(${partitionNameKey}) AND attribute_not_exists(${sortNameKey})`,
       ExpressionAttributeValues : expresionAtributeValues !== undefined ? expresionAtributeValues : undefined
   });    
@@ -85,7 +94,8 @@ export async function deleteDataOnDynamo(tableName: string, keyValue : string,  
     Key: {
       [partitionKeyName]: {S : keyValue},
       [sotrKeyName]: {S : sortKeyValue}
-    }
+    },
+    ReturnValues: 'ALL_OLD'     
   }
   const response = await dbClient.send(new DeleteItemCommand(params));
   return response;

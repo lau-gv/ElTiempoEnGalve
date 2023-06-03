@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, Context } from "aws-lambda";
-import { deleteStation } from "../controller/stationControllerCrud";
+import { deleteStation } from "../controller/stationDeleteController";
 
 const TABLE_NAME = process.env.TABLE_NAME || '';
 

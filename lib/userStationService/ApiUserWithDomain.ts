@@ -15,6 +15,7 @@ import { IUserPool } from "aws-cdk-lib/aws-cognito";
 //Aquí quiero crear un dominio
 //Un certificado
 //Una api con un subdominio.
+//ESTA CLASE NO SE USA PERO LA MANTENGO AQUÍ PORQUE ES UN EJEMPLO.
 export interface ApiUserPropsWithDomain {
     wildcard: Certificate,
     hostedZone : HostedZone;
@@ -29,7 +30,7 @@ export class ApiUser extends Construct {
         super(scope, id);
 
         //Creamos las Lambdas:
-        const createStation = new NodejsFunction(this, 'createStationLambda', {
+        const createStation = new NodejsFunction(this, 'CreateStationLambda', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
             entry: (join(__dirname, '..','..',  'src', 'userService', 'lambdas', 'createStationLambda.ts')),
@@ -38,7 +39,7 @@ export class ApiUser extends Construct {
             }
         });
 
-        const deleteStation = new NodejsFunction(this, 'deleteStationLambda', {
+        const deleteStation = new NodejsFunction(this, 'DeleteStationLambda', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
             entry: (join(__dirname, '..','..',  'src', 'userService', 'lambdas', 'deleteStationLambda.ts')),
@@ -47,7 +48,7 @@ export class ApiUser extends Construct {
             }
         });
 
-        const getUserStations = new NodejsFunction(this, 'userService', {
+        const getUserStations = new NodejsFunction(this, 'UserService', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
             entry: (join(__dirname, '..','..',  'src', 'userService', 'lambdas', 'getUserStationsLambda.ts')),

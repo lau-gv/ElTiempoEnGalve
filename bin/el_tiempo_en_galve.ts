@@ -19,7 +19,7 @@ const receiverServiceStack = new ReceiverServiceStack(app, 'ReceiverService', {
 
 const authorizerStack = new AuthStack(app, 'AuthStack');
 
-const userServiceStack = new UserServiceStack(app, 'UserServiceStack', {
+const userServiceStack = new UserServiceStack(app, 'UserStationServiceStack', {
   stationTable: databaseStack.stationTable,
   userPool: authorizerStack.userPool,
 });

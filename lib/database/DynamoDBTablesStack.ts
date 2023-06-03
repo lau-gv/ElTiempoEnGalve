@@ -35,7 +35,7 @@ export class DynamoDBTablesStack extends Stack{
       this.stationTable = new Table(this, `${STATION_TABLE_NAME}`, {
         tableName: STATION_TABLE_NAME,
         partitionKey: { name: 'userId', type: AttributeType.STRING },
-        sortKey: {name: 'id', type: AttributeType.STRING},
+        sortKey: {name: 'stationId', type: AttributeType.STRING},
         //billingMode: BillingMode.PROVISIONED,
         //billingMode: BillingMode.PAY_PER_REQUEST,
         removalPolicy: RemovalPolicy.RETAIN
@@ -61,7 +61,7 @@ export class DynamoDBTablesStack extends Stack{
       */
   
       this.stationDataTable = new Table(this, `${STATION_DATA_TABLE_NAME}`, {
-          partitionKey: { name: 'id', type: AttributeType.STRING },
+          partitionKey: { name: 'stationId', type: AttributeType.STRING },
           sortKey: {name: 'datadatetime', type: AttributeType.STRING},
           tableName: STATION_DATA_TABLE_NAME,
           //billingMode: BillingMode.PROVISIONED,

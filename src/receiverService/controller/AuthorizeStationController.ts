@@ -1,5 +1,5 @@
-import { returnWeatherStationType } from "../../common/model/StationModel/WeatherStationFactory";
 import { getIdByAuthStation } from "../../common/services/repository/EstacionRepository/DynamoStationDB";
+import { returnWeatherStationType } from "../model/StationModel/WeatherStationFactory";
 
 export async function authorizeStation(event: any, STATION_TABLE: string) {
 
@@ -11,12 +11,13 @@ export async function authorizeStation(event: any, STATION_TABLE: string) {
     try {
       const parsedBody = JSON.parse(event.body);
       const station: WeatherStation | undefined = returnWeatherStationType(parsedBody);
-  
+      
       if (station) {
         const id: string | undefined = await getIdByAuthStation(STATION_TABLE, station.getAuth());
   
         if (id) {
           const dataTransformed = JSON.stringify((station.formatData(id, parsedBody)));
+          console.log(dataTransformed);
           authorize = {
             "authorization": "true",
             "body": dataTransformed

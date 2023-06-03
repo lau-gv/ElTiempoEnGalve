@@ -45,7 +45,7 @@ export class ApiUserStation extends Construct {
             }
         });
 
-        const getUserStations = new NodejsFunction(this, 'UserService', {
+        const getUserStations = new NodejsFunction(this, 'GetAllStationByUserLambda', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
             entry: (join(__dirname, '..','..',  'src', 'userStationService', 'lambdas', 'getUserStationsLambda.ts')),
@@ -54,7 +54,7 @@ export class ApiUserStation extends Construct {
             }
         });
 
-        const updateStation = new NodejsFunction(this, 'UpdateStation', {
+        const updateStation = new NodejsFunction(this, 'UpdateStationLambda', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
             entry: (join(__dirname, '..','..',  'src', 'userStationService', 'lambdas', 'updateStationLambda.ts')),
@@ -86,11 +86,13 @@ export class ApiUserStation extends Construct {
             }
         }
         const stationResource = api.root.addResource('station');
+        const stationsResource = api.root.addResource('stations');
 
         //Asociamos una lambda a cada método para el recurso creado y le añadimos la autorización.
         stationResource.addMethod('POST', new LambdaIntegration(createStation), optionWithauth);
         stationResource.addMethod('DELETE', new LambdaIntegration(deleteStation), optionWithauth);
-        stationResource.addMethod('GET', new LambdaIntegration(getUserStations), optionWithauth);
         stationResource.addMethod('PUT', new LambdaIntegration(updateStation), optionWithauth);
+        //stations
+        stationsResource.addMethod('GET', new LambdaIntegration(getUserStations), optionWithauth);
     }
 }

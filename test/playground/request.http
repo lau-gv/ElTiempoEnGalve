@@ -1,6 +1,6 @@
 
-@endpoint = 5mdj6w8cwk.execute-api.eu-west-3.amazonaws.com/prod/receiveData
-@cloudfront = d38yzyxxnty5po.cloudfront.net
+@endpoint = dgn6uizyih.execute-api.eu-west-3.amazonaws.com/prod/
+@cloudfront = dcf8dchfct0en.cloudfront.net
 //d25duxanbi4pts.cloudfront.net
 
 GET {{cloudfront}}?data=Nami
@@ -92,4 +92,7 @@ GET {{endpoint}}/receiveData/spaceId=7379560b-e399-4d8e-92ee-313ceeacdfa1
 
 
 GET {{endpoint}}/receiveData?location=Nami
+###
+
+GET {{cloudfront}}?ID=dhjd&PASSWORD=56789&tempf=53.1&humidity=48&dewptf=34.0&windchillf=53.1&winddir=41&windspeedmph=3.36&windgustmph=4.47&rainin=0.000&dailyrainin=0.012&weeklyrainin=0.012&monthlyrainin=0.091&yearlyrainin=-9999&totalrainin=7.020&solarradiation=625.36&UV=6&indoortempf=62.4&indoorhumidity=43&absbaromin=26.220&baromin=29.902&lowbatt=0&dateutc=now&softwaretype=EasyWeatherPro_V5.1.1&action=updateraw&realtime=1&rtfreq=5
 ###

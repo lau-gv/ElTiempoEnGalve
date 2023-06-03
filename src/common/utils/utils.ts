@@ -7,6 +7,10 @@ export function createRandomId(){
     return randomUUID();
 }
 
+export function TwoDecimals(number: number): number{
+    return Math.round(number * 100) / 100;
+}
+
 
 export function parseJSON(arg: string){
     try {

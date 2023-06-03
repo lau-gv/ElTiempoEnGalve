@@ -17,7 +17,8 @@ export async function receiveData(event: APIGatewayProxyEvent, queueDataUrl: str
             }
         }
         data.spainTime = time;
-        console.error(data);
+        console.log(event);
+        console.log(data);
         await sendMessageToQueue(data, queueDataUrl, sqsClient);
         return {
             statusCode: 200, 
@@ -70,6 +71,7 @@ function getItemData(event: APIGatewayProxyEvent) {
 function validateData(data: any): boolean {
     return (
         (data.hasOwnProperty("PASSKEY")) ||
-        (data.hasOwnProperty("station_id") && data.hasOwnProperty("station_key"))
+        //(data.hasOwnProperty("station_id") && data.hasOwnProperty("station_key"))
+        (data.hasOwnProperty("ID") && data.hasOwnProperty("PASSWORD"))
     );
 }

@@ -4,6 +4,12 @@ export class MissingFieldError extends Error {
     }
 }
 
+export class UnexpectedFieldError extends Error {
+  constructor(unexpectedField: string) {
+      super(`Value for ${unexpectedField} not expected!`)
+  }
+}
+
 
 export class JsonError extends Error {}
 
