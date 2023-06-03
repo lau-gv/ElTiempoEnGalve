@@ -1,5 +1,6 @@
+import { WeatherStationModel } from "../../model/WeatherStationModel";
 
-interface StationTaskCreate{
+export interface StationTaskCreate{
     createStation(data : any) : WeatherStationModel;
 }
 

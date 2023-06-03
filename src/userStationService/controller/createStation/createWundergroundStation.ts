@@ -1,6 +1,7 @@
 import { createRandomId } from "../../../common/utils/utils";
 import { WeatherStationModel } from "../../model/WeatherStationModel";
 import { WundergroundStation } from "../../model/WundergroundStation";
+import { StationTaskCreate } from "../stationTasks/stationTasks";
 
 export function createWundergroundStation(data : WeatherStationModel): StationTaskCreate {
  

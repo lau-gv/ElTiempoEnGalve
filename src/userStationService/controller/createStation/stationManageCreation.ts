@@ -1,4 +1,5 @@
 import { StationType, WeatherStationModel } from "../../model/WeatherStationModel";
+import { StationTaskCreate } from "../stationTasks/stationTasks";
 import { createEcowitStation } from "./createEcowittStation";
 import { createWundergroundStation } from "./createWundergroundStation";
 

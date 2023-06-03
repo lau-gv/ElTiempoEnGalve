@@ -1,6 +1,7 @@
 import { MissingFieldError } from "../../../common/utils/Validator";
 import { EcowittStationModel } from "../../model/EcowittStationModel";
 import { WeatherStationModel } from "../../model/WeatherStationModel";
+import { StationTaskCreate } from "../stationTasks/stationTasks";
 
 export function createEcowitStation(data:WeatherStationModel): StationTaskCreate {
  
