@@ -1,6 +1,6 @@
 import { marshall } from "@aws-sdk/util-dynamodb";
 import { DynamoDB,  } from "aws-sdk";
-import { DynamoDBClient, QueryCommand, QueryCommandInput, PutItemCommand , PutItemCommandInput, PutItemCommandOutput, ScanCommand, QueryCommandOutput, DeleteItemCommand, DeleteItemCommandInput, DeleteItemCommandOutput, AttributeValue} from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, QueryCommand, QueryCommandInput, PutItemCommand , PutItemCommandInput, PutItemCommandOutput, ScanCommand, QueryCommandOutput, DeleteItemCommand, DeleteItemCommandInput, DeleteItemCommandOutput, AttributeValue, UpdateItemCommand, UpdateItemCommandOutput} from "@aws-sdk/client-dynamodb";
 import { ConditionExpression } from "aws-sdk/clients/dynamodb";
 
 export async function getFirstByIndex(table_name: string, indexName: string, value: string)
@@ -32,10 +32,19 @@ export async function getAllByIndex(table_name: string, indexName: string, value
 
 export async function updateDataOnDynamo(tableName: string, item: any): 
 Promise<PutItemCommandOutput>{
+  const marshallOptions = {
+    // Whether to automatically convert empty strings, blobs, and sets to `null`.
+    convertEmptyValues: false, // false, by default.
+    // Whether to remove undefined values while marshalling.
+    removeUndefinedValues: true, // false, by default.
+    // Whether to convert typeof object to map attribute.
+    convertClassInstanceToMap: true, // false, by default. <-- HERE IS THE ISSUE
+  };
+
   const dbClient = new DynamoDBClient({});
   const params = new PutItemCommand({
       TableName: tableName,
-      Item: marshall(item)
+      Item: marshall(item, marshallOptions)
   });    
   return await dbClient.send(params);
 }
@@ -53,7 +62,7 @@ Promise<PutItemCommandOutput>{
     removeUndefinedValues: true, // false, by default.
     // Whether to convert typeof object to map attribute.
     convertClassInstanceToMap: true, // false, by default. <-- HERE IS THE ISSUE
-};
+  };
 
   const params = new PutItemCommand({
       TableName: tableName,

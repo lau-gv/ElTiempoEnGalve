@@ -1,8 +1,9 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
-import { createRandomId, parseJSON } from "../../common/utils/utils";
-import { createStationDynamo, deleteStationDynamo, updateStationDynamo } from "../../common/services/repository/EstacionRepository/DynamoStationDB";
-import { WeatherStationModel } from "../model/WeatherStationModel";
+import { MissingFieldError, UnexpectedFieldError, handleError } from "../../../common/utils/Validator";
+import { createRandomId, parseJSON } from "../../../common/utils/utils";
+import { createStationDynamo, deleteStationDynamo, updateStationDynamo } from "../../../common/services/repository/EstacionRepository/DynamoStationDB";
+import { WeatherStationModel } from "../../model/WeatherStationModel";
+import { updateStationManager } from "./stationManageUpdate";
 
 export async function updateStation(event: APIGatewayProxyEvent, tableName : string){
 
@@ -19,7 +20,8 @@ export async function updateStation(event: APIGatewayProxyEvent, tableName : str
         
         const data = parseJSON(event.body)
         validateAsStation(data);
-        await updateStationDynamo(tableName, data);
+        var station = updateStationManager(data);
+        await updateStationDynamo(tableName, station);
         
         return {
             statusCode: 200, 
@@ -33,8 +35,6 @@ export async function updateStation(event: APIGatewayProxyEvent, tableName : str
         return handleError(error);
     }
 }
-
-
 function validateAsStation(arg: any){
 
     const allowedFields = ['userId', 'stationId', 'authStation', 'key', 'location', 'name', 'type'];

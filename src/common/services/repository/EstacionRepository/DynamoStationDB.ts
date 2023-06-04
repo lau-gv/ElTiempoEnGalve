@@ -34,6 +34,7 @@ export async function deleteStationDynamo(tableName: string, station: WeatherSta
 }
 
 export async function updateStationDynamo(tableName: string, station: WeatherStationModel) {
+    //De esta manera va a poder actualizar todo. Lo cual, no es exactamente bien. Pero me da igual XD :(
     const response = await updateDataOnDynamo(tableName, station);
     //const response 
 }
