@@ -7,7 +7,7 @@ export class EcowittStationModel implements WeatherStationModel {
     name: string;
     location: string;
     type : string;
-    key: string | undefined;
+    key: string;
 
     constructor(
         userId: string,
@@ -15,6 +15,7 @@ export class EcowittStationModel implements WeatherStationModel {
         authStation: string,
         name: string,
         location: string,
+        key: string,
       ) {
         this.userId = userId;
         this.stationId = stationId;
@@ -22,6 +23,7 @@ export class EcowittStationModel implements WeatherStationModel {
         this.name = name;
         this.location = location;
         this.type = StationType.ecowitt.valueOf();
+        this.key = key;
     }
 
 }

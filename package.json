@@ -25,6 +25,7 @@
     "@aws-sdk/client-sqs": "^3.321.1",
     "@aws-sdk/util-dynamodb": "^3.321.1",
     "@types/aws-sdk": "^2.7.0",
+    "@types/crypto-js": "^4.1.1",
     "aws-cdk-lib": "2.76.0",
     "constructs": "^10.0.0",
     "esbuild": "0.17.18",

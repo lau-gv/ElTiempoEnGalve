@@ -7,7 +7,7 @@ export interface WeatherStationModel {
     userId: string;
     stationId: string;
     authStation: string;
-    key: string | undefined;
+    key: string ;
     name: string;
     location: string;
     type: string;
