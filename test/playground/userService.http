@@ -1,6 +1,6 @@
 
 @endpoint =  https://vaxprgw4wl.execute-api.eu-west-3.amazonaws.com/prod
-@token = eyJraWQiOiJYQ1BJYzRHTDZJaCtRdEpKRWpza3VscmFOXC9JdmFKb1NCSUcxSXVtbnFQQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0NDM0MzMwMS04N2FlLTRjZmYtYjMzNC05ZmIyOWMzYjgxZTEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LXdlc3QtMy5hbWF6b25hd3MuY29tXC9ldS13ZXN0LTNfanBKamh3U3BLIiwiY29nbml0bzp1c2VybmFtZSI6ImxhdWxpZXR0Iiwib3JpZ2luX2p0aSI6IjZlYTEwMzE0LTMzNzgtNDYxMi1iMGNjLTY5NmJmMTBiZTA1YiIsImF1ZCI6IjFlNG91cnN2MThrMWlnaGk2ZXJ0ZHQzNGhtIiwiZXZlbnRfaWQiOiJmMTAxNDAxYS02Zjc3LTQxN2YtYjRlZS1hYzJlMTMyMzg3Y2IiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4NTg4MTk2NCwiZXhwIjoxNjg1ODg1NTY0LCJpYXQiOjE2ODU4ODE5NjQsImp0aSI6IjNhMTk2YWYyLTAzMmItNDU0ZS1iYmMxLTY2Y2I2ODZjYTIwMyIsImVtYWlsIjoibGF1cmFnaW1lbm9jcEBnbWFpbC5jb20ifQ.Lc4DFzsKqPTh-rEU3CL0q89nTBS9f0P3YCDof8SOvc49c9tSy8E2H3PYKysA_WpLMOhOiwg6BFgCt1jQLvrmtMadH5RGjtNdY0v7tgLq3D9JmcN_YL4a9_MmWZzyN2VqgEdm3qQndgZak-vA-1CDri0fCMOkAS4yZz0-3h4N15ioH2yd2K-CTJvh7bYi388RqV9FdTNJp6THUzjS7xkVRfqvchvifjinxiyXSrFaRYnRJkVKZmbgvpY1PkAD2z2x0oNVLnFio39Jm1d1gLz6WzTnkho5OxKdl6AUWEGcH6TjRltquqlr4qzWmLR7ITYpFf1f5SD00h0rNcCCFbV-dw
+@token = eyJraWQiOiJYQ1BJYzRHTDZJaCtRdEpKRWpza3VscmFOXC9JdmFKb1NCSUcxSXVtbnFQQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0NDM0MzMwMS04N2FlLTRjZmYtYjMzNC05ZmIyOWMzYjgxZTEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LXdlc3QtMy5hbWF6b25hd3MuY29tXC9ldS13ZXN0LTNfanBKamh3U3BLIiwiY29nbml0bzp1c2VybmFtZSI6ImxhdWxpZXR0Iiwib3JpZ2luX2p0aSI6IjdlNGRlNzQ2LTNiZTUtNDE1ZS1iYjNmLTUwNzFiMjVjMzdlNyIsImF1ZCI6IjFlNG91cnN2MThrMWlnaGk2ZXJ0ZHQzNGhtIiwiZXZlbnRfaWQiOiI1NjI1ZGE0NC04N2UzLTQ4OGYtYjMyNC04NjM2OWUyYzM2NzAiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4NTkwMjYzMiwiZXhwIjoxNjg1OTA2MjMyLCJpYXQiOjE2ODU5MDI2MzIsImp0aSI6ImYxMTRjZWZiLTcyZmUtNDMxZS04NmE2LTQ0YWJhZjk3NDEyYyIsImVtYWlsIjoibGF1cmFnaW1lbm9jcEBnbWFpbC5jb20ifQ.yTZAn-QktYPpof4RAeGyyoZqy1BFPjq_VcJdNSwalO55f7XszUUJx2zHkQiF_RTGYtjiZP9vSGw52GU97lrKygMhuBD9lCPc8w6IFWMf65s0dbA-v7aOJc0tNKXFT6cxwdauU0xGQlDdMtI9JBzprHM0YQViIpHPXOMVpryhY0-9z0kiahH-AaMLubpqzf5lE62JPpODfaDO7KiSN86jMuyuD-I_DQ8RleEbBR5AYYtIyaVl94ENw4NJdcR0R58ZxtvpwVUx6hcU1wnchivnU7KGdLzUJB3sdkT4xhLnxW64twGxkrtApwC9sizm-Q1jwplwfpV-yIeo5PIU8KKE_A
 Authorization: {{token}}
 
 ###
@@ -50,13 +50,15 @@ Authorization: {{token}}
 Content-Type: Application/Json
 
 {   
-  "userId": "f76e842b-f98d-4f65-b89d-60cb9f9ad253",
-  "id": "eb39c4d3-7938-4997-a207-15d550e7f92f",
-  "authStation": "599E78B1B5EA0911BF1EE9940954FFA2",
-  "name": "LauraStationGalve",
-  "type": "wunderground",
-  "location" : "idLocalizacionStation"
+    "authStation": "a65ae3fd-aa9e-4581-be00-5fd06eef696e",
+    "location": "Mas Blanco",
+    "userId": "44343301-87ae-4cff-b334-9fb29c3b81e1",
+    "stationId": "40f6da8e-55b8-4e96-bc9f-bb5e6bd2edb6",
+    "key": "9548a01a-49d0-4b14-b918-155628193ef7",
+    "name": "Mas Blanco",
+    "type": "wunderground"
 }
+
 ###
 
 GET   {{endpoint}}/stations?userId=44343301-87ae-4cff-b334-9fb29c3b81e1
