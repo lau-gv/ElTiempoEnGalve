@@ -15,10 +15,10 @@ export class EcowittStation implements WeatherStation{
     formatData(stationId: string, parsedData: any) {
         const data : StationData = {
             stationId: stationId,
-            datadatetime: parsedData.spainTime,
+            datadatetime: parseInt(parsedData.spainTime),
             authStation: this.getAuth(),
             temperature: twoDecimals((parseFloat(parsedData.tempf) - 32) * 5/9),
-            humidity:  parsedData.humidity,
+            humidity:  parseInt(parsedData.humidity),
             baromrelhpa: twoDecimals(parseFloat(parsedData.baromrelin)* 33.86388640341),  
             baromabshpa: twoDecimals(parseFloat(parsedData.baromabsin)* 33.86388640341), 
             rainrateinmm: twoDecimals(parseFloat(parsedData.rainratein) * 25.4), 
@@ -32,15 +32,15 @@ export class EcowittStation implements WeatherStation{
             windspeedkmh: twoDecimals(parseFloat(parsedData.windspeedmph) * 1.60934), 
             windguskmh: twoDecimals(parseFloat(parsedData.windgustmph) * 1.60934), 
             maxdailygust: twoDecimals(parseFloat(parsedData.maxdailygust) * 1.60934), 
-            solarradiation: parsedData.solarradiation, 
-            uv:  parsedData.uv, 
+            solarradiation: parseFloat(parsedData.solarradiation), 
+            uv:  parseInt(parsedData.uv), 
             lowbatt: parsedData.wh65batt, 
             freq: parsedData.freq,
             model: parsedData.model, 
             interval: parsedData.interval,
             //Datos de dentro:tempinf
             indoortempf: twoDecimals((parseFloat(parsedData.tempinf) - 32) * 5/9),
-            indoorhumidity: parsedData.humidityin
+            indoorhumidity: parseInt(parsedData.humidityin)
             
         }  
         return data;

@@ -1,7 +1,7 @@
 interface StationData { 
     //DatosDeFuera.
     stationId: string;
-    datadatetime: string; 
+    datadatetime: number; 
     authStation: string; 
     temperature: number;
     humidity: number; //%

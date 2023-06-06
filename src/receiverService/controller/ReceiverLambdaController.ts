@@ -68,6 +68,7 @@ function getItemData(event: APIGatewayProxyEvent) {
     return item;
 }
 
+//Sería mas correcto validar todos los campos. Pero es que.. son "tantos" XD.
 function validateData(data: any): boolean {
     return (
         (data.hasOwnProperty("PASSKEY")) ||

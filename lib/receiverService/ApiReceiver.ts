@@ -9,7 +9,6 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { join } from "path";
 
 
-
 export class ApiReceiver extends Construct {
 
     public readonly queue: Queue;

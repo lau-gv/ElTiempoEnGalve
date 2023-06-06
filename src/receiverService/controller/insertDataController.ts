@@ -4,7 +4,8 @@ import { insertStationData } from "../../common/services/repository/EstacionRepo
 
 export async function insertData(event: any, TABLE_NAME: string){    
     try{
-        const body= JSON.parse(event.Payload.body);
+        const body = JSON.parse(event.Payload.body);
+        console.log(body);
         await insertStationData(TABLE_NAME, body);
         return  {
             "statusCode": 201,

@@ -3,7 +3,6 @@ import { Construct } from "constructs";
 import { AttributeType, BillingMode, ProjectionType, Table } from 'aws-cdk-lib/aws-dynamodb';
 import {} from "aws-cdk-lib"
 
-const USERTABLE_NAME: string = 'user_table_el_tiempo_en_galve';
 const STATION_TABLE_NAME: string  = 'station_table_el_tiempo_en_galve';
 const STATION_DATA_TABLE_NAME: string = 'station_data_table_el_tiempo_en_galve';
 
@@ -62,7 +61,7 @@ export class DynamoDBTablesStack extends Stack{
   
       this.stationDataTable = new Table(this, `${STATION_DATA_TABLE_NAME}`, {
           partitionKey: { name: 'stationId', type: AttributeType.STRING },
-          sortKey: {name: 'datadatetime', type: AttributeType.STRING},
+          sortKey: {name: 'datadatetime', type: AttributeType.NUMBER},
           tableName: STATION_DATA_TABLE_NAME,
           //billingMode: BillingMode.PROVISIONED,
           //billingMode: BillingMode.PAY_PER_REQUEST

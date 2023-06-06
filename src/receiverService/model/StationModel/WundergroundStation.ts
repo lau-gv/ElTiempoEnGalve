@@ -18,10 +18,10 @@ export class WundergroundStation implements WeatherStation{
     formatData(stationId: string, parsedData: any) {
         const data : StationData = {
             stationId: stationId,
-            datadatetime: parsedData.spainTime,
+            datadatetime: parseInt(parsedData.spainTime),
             authStation: this.getAuth(),
             temperature: twoDecimals((parseFloat(parsedData.tempf) - 32) * 5/9),
-            humidity:  parsedData.humidity,
+            humidity:  parseInt(parsedData.humidity),
             baromrelhpa: twoDecimals(parseFloat(parsedData.baromin)* 33.86388640341),  
             baromabshpa: twoDecimals(parseFloat(parsedData.absbaromin)* 33.86388640341), 
             rainrateinmm: twoDecimals(parseFloat(parsedData.rainratein) * 25.4), 
@@ -35,8 +35,8 @@ export class WundergroundStation implements WeatherStation{
             windspeedkmh: twoDecimals(parseFloat(parsedData.windspeedmph) * 1.60934), 
             windguskmh: twoDecimals(parseFloat(parsedData.windgustmph) * 1.60934), 
             maxdailygust: twoDecimals(parseFloat(parsedData.maxdailygust) * 1.60934), 
-            solarradiation: parsedData.solarradiation, 
-            uv: parsedData.UV, 
+            solarradiation: parseFloat(parsedData.solarradiation), 
+            uv: parseInt(parsedData.UV), 
             lowbatt: parsedData.lowbatt, 
             model: parsedData.softwaretype, 
             interval: parsedData.rtfreq,
@@ -45,7 +45,7 @@ export class WundergroundStation implements WeatherStation{
             //windchillf
             //Datos de dentro:tempinf
             indoortempf: twoDecimals((parseFloat(parsedData.indoortempf) - 32) * 5/9),
-            indoorhumidity: parsedData.indoorhumidity
+            indoorhumidity: parseInt(parsedData.indoorhumidity)
         }  
         return data;
     }

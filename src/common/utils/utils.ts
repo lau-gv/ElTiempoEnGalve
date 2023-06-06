@@ -49,8 +49,3 @@ export function getEventBodyVariableHeaders(event: APIGatewayProxyEvent){
         return {}
     }
 }
-
-export function roundTwoDecimals(number: number) : number{
-    return Math.round(number * 100) / 100
-}
-
