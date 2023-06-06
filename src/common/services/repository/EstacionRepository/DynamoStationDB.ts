@@ -1,5 +1,5 @@
 import { AWSError, DynamoDB } from "aws-sdk";
-import { deleteDataOnDynamo, getAllByQueryString, getFirstByIndex, createDataOnDynamo, updateDataOnDynamo } from "../DynamoDataAcess";
+import { deleteDataOnDynamo, getAllByQuery, getFirstByIndex, createDataOnDynamo, updateDataOnDynamo } from "../DynamoDataAcess";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { WeatherStationModel } from "../../../../userStationService/model/WeatherStationModel";
 
@@ -13,17 +13,18 @@ export async function getIdByAuthStation(tableName: string, authStation: string)
 export async function getAllStationsByUserDynamo(tableName: string, userId: string) :
     Promise<WeatherStationModel[] | undefined>{
 
-    const response = await getAllByQueryString(tableName, "userId", userId);
+    const keyConditionExpression = "#keyName = :keyValue";
+    const expressionAttributeNames = {'#keyName': "userId",}
+    const expressionAttributeValues = {
+        ":keyValue": {S: userId},
+      };
+
+    const response = await getAllByQuery(tableName, keyConditionExpression, expressionAttributeNames, expressionAttributeValues);
     return  response.Items?.map((station) => unmarshall(station) as WeatherStationModel) ;
 }
 
 export async function createStationDynamo(tableName: string, station: WeatherStationModel) {
 
-
-    const conditionExpresion =  `attribute_not_exists(userId) AND attribute_not_exists(stationId) AND attribute_not_exists(authStation) AND (NOT contains(authStation, :val))`;
-    const expressionAttributeValues = {
-        ':val' : {S : station.authStation}
-    };
     const response = await createDataOnDynamo(tableName, station, 'userId', 'stationId')
 }
 

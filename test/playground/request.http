@@ -1,6 +1,6 @@
 
 @endpoint = https://2ylz22zqwf.execute-api.eu-west-3.amazonaws.com/prod
-@cloudfront = d2yh5v9snwc9pw.cloudfront.net
+@cloudfront = d3dc97bt7ia3z6.cloudfront.net
 //d25duxanbi4pts.cloudfront.net
 
 GET {{cloudfront}}?data=Nami
@@ -26,11 +26,11 @@ Content-Type: application/json
     "stationtype": "EasyWeatherPro_V5.1.1",
     "runtime": "2",
     "dateutc": "2023-04-24 23:13:44",
-    "tempinf": "65.7",
+    "tempinf": "85.7",
     "humidityin": "42",
     "baromrelin": "29.926",
     "baromabsin": "26.164",
-    "tempf": "49.3",
+    "tempf": "50.3",
     "humidity": "75",
     "winddir": "178",
     "windspeedmph": "0.00",

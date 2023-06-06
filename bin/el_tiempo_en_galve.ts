@@ -6,6 +6,7 @@ import { ReceiverServiceStack } from '../lib/receiverService/ReceiverServiceStac
 import { UserServiceStack } from '../lib/userStationService/UserServiceStack';
 import { DomainStack } from '../lib/domain/domainStack';
 import { AuthStack } from '../lib/AuthStack/AuthStak';
+import { HistoricalDataStack } from '../lib/historicalData/HistoricalDataStack';
 
 const app = new cdk.App();
 const databaseStack = new DynamoDBTablesStack(app, 'DynamoDBTableStack');
@@ -14,7 +15,8 @@ const databaseStack = new DynamoDBTablesStack(app, 'DynamoDBTableStack');
 
 const receiverServiceStack = new ReceiverServiceStack(app, 'ReceiverService', {
   stationDataTable: databaseStack.stationDataTable,
-  stationTable: databaseStack.stationTable
+  stationTable: databaseStack.stationTable,
+  stationHistoricalDayDataTable: databaseStack.stationHistoricalDayDataTable,
 });
 
 const authorizerStack = new AuthStack(app, 'AuthStack');
@@ -24,7 +26,12 @@ const userServiceStack = new UserServiceStack(app, 'UserStationServiceStack', {
   userPool: authorizerStack.userPool,
 });
 
-/* No me dejan comprar un dominio para probar la correcta configuración de mi certificado caguen la kk!!! JEJEJE
+const apiHistoricalData = new HistoricalDataStack(app, 'TodayHistoricalServiceStack', {
+  stationHistoricalDayDataTable: databaseStack.stationHistoricalDayDataTable,
+  userPool: authorizerStack.userPool,
+})
+
+/* No me dejan comprar un dominio para probar la correcta configuración de mi certificado hasta que no haga algo 
 const userServiceStackWithDomain = new UserServiceStack(app, 'UserServiceStack', {
   hostedZone: domainStack.hostedZone,
   wildcard: domainStack.wildcardCertificate,

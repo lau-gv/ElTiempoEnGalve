@@ -10,6 +10,7 @@ export async function getFirstByIndex(table_name: string, indexName: string, val
     return atributosEncontrados?.shift();
 }
 
+
 export async function getAllByIndex(table_name: string, indexName: string, value: string)
 : Promise<DynamoDB.AttributeMap[] | undefined> {
     const dbClient = new DynamoDBClient({});
@@ -74,26 +75,23 @@ Promise<PutItemCommandOutput>{
   return await dbClient.send(params);
 }
 
-export async function getAllByQueryString(tableName: string, keyName: string, keyValue: string) :
+export async function getAllByQuery(tableName: string, 
+  keyConditionExpression: string, expressionAttributeNames : Record<string, string>, 
+  expressionAttributeValues: Record<string, AttributeValue>) :
 Promise<QueryCommandOutput> {
   const dbClient = new DynamoDBClient({});
   const command = new QueryCommand({
     TableName: tableName,
-    KeyConditionExpression:
-      "#keyName = :keyValue",
-    
-    ExpressionAttributeNames: {
-        '#keyName': keyName,
-      },
-    ExpressionAttributeValues: {
-      ":keyValue": {S: keyValue},
-    },
+    KeyConditionExpression: keyConditionExpression,
+    ExpressionAttributeNames: expressionAttributeNames,
+    ExpressionAttributeValues: expressionAttributeValues,
     ConsistentRead: true,
   });
 
   const response = await dbClient.send(command);
   return response;
 }
+
 
 export async function deleteDataOnDynamo(tableName: string, keyValue : string,  partitionKeyName: string, sortKeyValue : string, sotrKeyName : string)
 : Promise<DeleteItemCommandOutput>{
@@ -109,4 +107,6 @@ export async function deleteDataOnDynamo(tableName: string, keyValue : string,  
   const response = await dbClient.send(new DeleteItemCommand(params));
   return response;
 }
+
+
 

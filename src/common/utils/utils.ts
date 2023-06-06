@@ -49,3 +49,13 @@ export function getEventBodyVariableHeaders(event: APIGatewayProxyEvent){
         return {}
     }
 }
+
+export function returnMaxValue(actualValue : number, incominValue : number){
+    return actualValue < incominValue 
+            ? incominValue : actualValue;
+}
+
+export function returnMinValue(actualValue : number, incominValue : number){
+    return actualValue > incominValue 
+    ? incominValue : actualValue;
+}

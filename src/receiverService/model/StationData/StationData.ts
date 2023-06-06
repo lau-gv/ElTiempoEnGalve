@@ -15,7 +15,7 @@ interface StationData {
     monthlyraininmm: number;
     yearlyraininmm: number;
     winddir: number; // dirección del viento en grados (°) (59).
-    windspeedkmh: number; //velocidad del viento en km por hora (mph) (2.24).
+    windspeedkmh: number; //velocidad del viento en km por hora PROMEDIO durante 1 minuto (mph) (2.24).
     windguskmh: number; // ráfaga máxima de viento en km por hora (mph) (3.36).
     maxdailygust: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
     solarradiation: number; //radiación solar en vatios por metro cuadrado (W/m2) (567.79).

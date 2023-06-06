@@ -9,6 +9,7 @@ import { TriguerProcessdata } from "./TriguerProcessData";
 interface ReceiverServiceStackProps extends StackProps {
     stationTable: Table;
     stationDataTable: Table;
+    stationHistoricalDayDataTable: Table;
   }
   
   export class ReceiverServiceStack extends Stack {
@@ -20,8 +21,10 @@ interface ReceiverServiceStackProps extends StackProps {
         const apiReceiver : ApiReceiver = new ApiReceiver(this, 'apiReceiverService');
         const processReceiverdata : ProcessReceiverData = new ProcessReceiverData(this, 'processReceiverData', {
             stationDataTable: props.stationDataTable,
-            stationTable: props.stationTable
+            stationTable: props.stationTable,
+            stationHistoricalDayDataTable: props.stationHistoricalDayDataTable,            
         })
+        
         const triguerProcessdata : TriguerProcessdata = new TriguerProcessdata(this, 'triguerProcessdata', {
             queue: apiReceiver.queue,
             stateMachine: processReceiverdata.stateMachine

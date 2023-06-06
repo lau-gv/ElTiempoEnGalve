@@ -6,7 +6,6 @@ import { join } from "path";
 import { Table } from "aws-cdk-lib/aws-dynamodb";
 import * as task from 'aws-cdk-lib/aws-stepfunctions-tasks';
 import { Chain, Choice, Condition, Map, Parallel, StateMachine, Succeed } from 'aws-cdk-lib/aws-stepfunctions';
-import { insertData } from "../../src/receiverService/controller/insertDataController";
 
 
 
@@ -15,6 +14,7 @@ import { insertData } from "../../src/receiverService/controller/insertDataContr
 interface ProcessReceiverDataProps {
     stationTable: Table;
     stationDataTable: Table;
+    stationHistoricalDayDataTable: Table;
 }
   
 
@@ -44,18 +44,19 @@ export class ProcessReceiverData extends Construct {
         });
 
         
-      const notifyDataLambda = new NodejsFunction(scope, 'NotifyDataLambda', {
+      const updateHistoricalDataDay = new NodejsFunction(scope, 'UpdateHistoricalDataDay', {
         runtime: Runtime.NODEJS_18_X,
         handler: 'handler',
-        entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'notifyLambda.ts')),
+        entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'updateHistoricalDataDay.ts')),
         environment: {
-          TABLE_NAME: props.stationDataTable.tableName,
+          TABLE_NAME: props.stationHistoricalDayDataTable.tableName,
         }
       });
 
       //Permisos de escritura sobre DYNAMO
       props.stationTable.grantReadData(authorizeStationLambda);
       props.stationDataTable.grantWriteData(insertStationDataLambda);
+      props.stationHistoricalDayDataTable.grantReadWriteData(updateHistoricalDataDay);
 
       //Preparamos las Lambdas para poder meterlas en StepFunctions.
       const authorizeStationTask = new task.LambdaInvoke(scope, 'ReceiverServiceStepfunctions', {
@@ -70,8 +71,8 @@ export class ProcessReceiverData extends Construct {
         resultPath: '$.insertDataResult',
       });
 
-      const notifyDataTask = new task.LambdaInvoke(this, 'NotifyDataTask', {
-        lambdaFunction: notifyDataLambda,
+      const notifyDataTask = new task.LambdaInvoke(this, 'UpdateHistoricalDataDay', {
+        lambdaFunction: updateHistoricalDataDay,
         inputPath: '$.authorizationResult',
         resultPath: '$.notifyResult',
       });

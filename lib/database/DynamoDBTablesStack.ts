@@ -5,12 +5,13 @@ import {} from "aws-cdk-lib"
 
 const STATION_TABLE_NAME: string  = 'station_table_el_tiempo_en_galve';
 const STATION_DATA_TABLE_NAME: string = 'station_data_table_el_tiempo_en_galve';
+const STATION_HISTORICAL_DATA_DAY: string = 'station_historical_day_data_table';
 
 export class DynamoDBTablesStack extends Stack{
     
-    public readonly userTable: Table;
     public readonly stationTable: Table;
     public readonly stationDataTable: Table;
+    public readonly stationHistoricalDayDataTable: Table;
 
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
@@ -67,6 +68,15 @@ export class DynamoDBTablesStack extends Stack{
           //billingMode: BillingMode.PAY_PER_REQUEST
           removalPolicy: RemovalPolicy.RETAIN
         });
+        
+      this.stationHistoricalDayDataTable = new Table(this, `${STATION_HISTORICAL_DATA_DAY}`, {
+          partitionKey: { name: 'stationId', type: AttributeType.STRING },
+          sortKey: {name: 'datadate', type: AttributeType.NUMBER},
+          tableName: STATION_HISTORICAL_DATA_DAY,
+          //billingMode: BillingMode.PROVISIONED,
+          //billingMode: BillingMode.PAY_PER_REQUEST
+          removalPolicy: RemovalPolicy.RETAIN
+        });
 
         this.stationTable.autoScaleWriteCapacity({ minCapacity: 5, maxCapacity: 25 })
           .scaleOnUtilization({targetUtilizationPercent: 90});
@@ -76,6 +86,11 @@ export class DynamoDBTablesStack extends Stack{
         this.stationDataTable.autoScaleWriteCapacity({ minCapacity: 5, maxCapacity: 25 })
           .scaleOnUtilization({targetUtilizationPercent: 90});
         this.stationDataTable.autoScaleReadCapacity({ minCapacity: 5, maxCapacity: 25 })
+          .scaleOnUtilization({targetUtilizationPercent: 90});      
+
+        this.stationHistoricalDayDataTable.autoScaleWriteCapacity({ minCapacity: 5, maxCapacity: 25 })
+          .scaleOnUtilization({targetUtilizationPercent: 90});
+        this.stationHistoricalDayDataTable.autoScaleReadCapacity({ minCapacity: 5, maxCapacity: 25 })
           .scaleOnUtilization({targetUtilizationPercent: 90});       
     }
 }
