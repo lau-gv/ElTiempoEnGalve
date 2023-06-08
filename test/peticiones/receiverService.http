@@ -1,6 +1,6 @@
 
 @endpoint = https://2ylz22zqwf.execute-api.eu-west-3.amazonaws.com/prod
-@cloudfront = d3dc97bt7ia3z6.cloudfront.net
+@cloudfront = d15hnh3a1g77c8.cloudfront.net
 //d25duxanbi4pts.cloudfront.net
 
 GET {{cloudfront}}?data=Nami

@@ -1,10 +1,9 @@
-interface HistoricalDataDay { 
+interface HistoricalDataMonth { 
     //DatosDeFuera.
     datadate: number;
     stationId: string;
     year: number;
     month: number;
-    day: number;
     maxTemperature: number;
     minTemperature: number;
     maxHumidity: number; //%

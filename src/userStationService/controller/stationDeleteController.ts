@@ -20,7 +20,7 @@ export async function deleteStation(event: APIGatewayProxyEvent, tableName : str
         const data = parseJSON(event.body)
         validateAsDeleteStation(data);
         const response = await deleteStationDynamo(tableName, data);
-        console.log(response);
+        //console.log(response);
         
 
         return {

@@ -3,8 +3,8 @@ import { MissingFieldError, UnexpectedFieldError } from "../../common/utils/Vali
 
 
 export function validateAsGetPeticion(event: APIGatewayProxyEvent) {
-    const allowedFields = ['stationId', 'datadate', 'key'];
-    const dataDateRegex = /^\d{8}$/;
+  const allowedFields = ['stationId', 'month'];
+    const dataDateRegex = /^\d{1}$/;
   
     const arg = event.queryStringParameters;
   
@@ -14,15 +14,15 @@ export function validateAsGetPeticion(event: APIGatewayProxyEvent) {
   
     for (const field in arg) {
       if (!allowedFields.includes(field)) {
-        throw new Error(`Campo inesperado: ${field}`);
+        throw new UnexpectedFieldError(`${field}`);
       }
     }
   
     if (!arg.stationId) {
-      throw new Error('Falta el campo requerido: stationId');
+      throw new MissingFieldError('stationId');
     }
   
     if (!arg.datadate || !dataDateRegex.test(arg.datadate)) {
-      throw new Error('Falta el campo requerido o no cumple con el formato requerido: datadate');
+      throw new MissingFieldError('month');
     }
   }

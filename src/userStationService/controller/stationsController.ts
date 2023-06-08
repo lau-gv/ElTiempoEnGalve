@@ -18,7 +18,7 @@ export async function getAllStationsByUser(event: APIGatewayProxyEvent, tableNam
         validateEntry(event);
         const userId = event.queryStringParameters['userId'];
         const stations = await getAllStationsByUserDynamo(tableName, userId!);
-        console.log(stations);
+        //console.log(stations);
         return {
             statusCode: 200, 
             body: JSON.stringify((stations)),

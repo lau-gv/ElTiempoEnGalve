@@ -5,11 +5,10 @@ import { validateAsGetPeticion } from "./validatorGetData";
 import { getHistoricalDataDay } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
 import { getHistoricalDataBetweenCommon } from "./getHistoricalDataBetweenDate";
 
-export async function getMonthHistoricalData(event: APIGatewayProxyEvent, tableName : string){
+export async function getBetweenHistoricalDataDayController(event: APIGatewayProxyEvent, tableName : string){
   
   try{
     const historicalDatasDay =  await getHistoricalDataBetweenCommon(event, tableName, validateData, returnStartDate, returnEndDate);
-
     return {
       statusCode: 200, 
       body: JSON.stringify((historicalDatasDay)),
@@ -23,18 +22,18 @@ export async function getMonthHistoricalData(event: APIGatewayProxyEvent, tableN
   }
 }
 
-function returnStartDate(yyyymm : string) : string {
-  return yyyymm.concat("01");
+function returnStartDate(yyyymmdd : string) : string {
+  return yyyymmdd;
 }
 
-function returnEndDate(yyyymm : string) : string {
-  return yyyymm.concat("31");
+function returnEndDate(yyyymmdd : string) : string {
+  return yyyymmdd;
 }
 
 function validateData(event: APIGatewayProxyEvent) {
-  const allowedFields = ['stationId', 'datadate'];
-  //Se espera YYYYMM año y mes.
-  const dataDateRegex = /^\d{6}$/;
+  const allowedFields = ['stationId', 'startDay', 'endDay' ];
+  //Se espera YYYYMMDD año y mes.
+  const dataDateRegex = /^\d{8}$/;
 
   const arg = event.queryStringParameters;
 
@@ -53,6 +52,6 @@ function validateData(event: APIGatewayProxyEvent) {
   }
 
   if (!arg.datadate || !dataDateRegex.test(arg.datadate)) {
-    throw new MissingFieldError('datadate');
+    throw new MissingFieldError('month');
   }
   }

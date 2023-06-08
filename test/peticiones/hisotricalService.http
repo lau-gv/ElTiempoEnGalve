@@ -1,0 +1,21 @@
+
+@endpoint = https://jwpkfmhdd1.execute-api.eu-west-3.amazonaws.com/prod
+//El token caduca a la hora.
+@token = eyJraWQiOiJpcmVXRFliblwvbmxsK1lidnRsT3hXQ1dDWHNENUlVc21lelVLMFZnZE90QT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3MTY5ODBhZS0wMGQxLTcwNjMtMzcwNC03ZDMwYzc5YmE2NDEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LXdlc3QtMy5hbWF6b25hd3MuY29tXC9ldS13ZXN0LTNfbXlkMTlaMWJxIiwiY29nbml0bzp1c2VybmFtZSI6ImxhdWxpZXR0Iiwib3JpZ2luX2p0aSI6IjZlN2IzYWExLWY5NGItNDI1Yy1hMjkzLWQxNTgzYTM2ODU1ZCIsImF1ZCI6IjI3N3UxbzFxN2Rja2dqN3U4cjFnZ3U3MHA3IiwiZXZlbnRfaWQiOiJmZTI3ZDk0Mi0xZTk3LTRlYWMtOGMzZS0wZjQ5OWVlNzFmZjkiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4NjI1OTM1MywiZXhwIjoxNjg2MjYyOTUzLCJpYXQiOjE2ODYyNTkzNTMsImp0aSI6IjUyNzQ0NzhhLTgzYWUtNDI0Mi05OWNhLWE1YmJmYjVmNDA1NiIsImVtYWlsIjoibGF1cmFnaW1lbm9jcEBnbWFpbC5jb20ifQ.j9pJ3tO32vJOkAl51N02jJJzNKeO_978O2lJL5NpM71L4xWLDWsocLViw19pob68MjfiRR_r9m0MPPqlhsWLxAq_cfeYFvfSZOrDYLy0l_SslyY2C7wte76ma-ahklycx-9sOHKjS6fIE_WeEVD-fxVy3RQ6skwB-j3Nngt6z1yfHM6ebVQRa7mZvNE_QwB-RTUTn8kFPjI_9pioFqPu456UqyiJFcvbm-ZiH8-Z29587jbTkoFH5h1Sx2Y3n3gPWft88Rp2-WhuXdPZJ6Tuk3T9tV1uqlq4T4poNE_yURecek-znpm6C6u_CYkwOllez7UFwey3W6ecAs9VdW_SSQ
+Authorization: {{token}}
+
+###
+
+GET   {{endpoint}}/dayHistorical/day?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&datadate=20230608
+Authorization: {{token}}
+
+###
+GET   {{endpoint}}/dayHistorical/month?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&datadate=202306
+Authorization: {{token}}
+
+###
+
+GET   {{endpoint}}//monthHistorical/year?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&datadate=2022
+Authorization: {{token}}
+
+###

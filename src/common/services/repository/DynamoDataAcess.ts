@@ -77,7 +77,7 @@ Promise<PutItemCommandOutput>{
 
 export async function getAllByQuery(tableName: string, 
   keyConditionExpression: string, expressionAttributeNames : Record<string, string>, 
-  expressionAttributeValues: Record<string, AttributeValue>) :
+  expressionAttributeValues: Record<string|number, AttributeValue>) :
 Promise<QueryCommandOutput> {
   const dbClient = new DynamoDBClient({});
   const command = new QueryCommand({

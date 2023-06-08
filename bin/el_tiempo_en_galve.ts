@@ -26,12 +26,15 @@ const userServiceStack = new UserServiceStack(app, 'UserStationServiceStack', {
   userPool: authorizerStack.userPool,
 });
 
-const apiHistoricalData = new HistoricalDataStack(app, 'TodayHistoricalServiceStack', {
+const apiHistoricalData = new HistoricalDataStack(app, 'HistoricalServiceStack', {
   stationHistoricalDayDataTable: databaseStack.stationHistoricalDayDataTable,
   userPool: authorizerStack.userPool,
 })
 
 /* No me dejan comprar un dominio para probar la correcta configuración de mi certificado hasta que no haga algo 
+que no se qué es exactamente y, como cuesta pasta, no lo voy a arreglar todavía. Pero aquí conste
+que generé la cosa usando cdk y fue bonito. Son los wildcards algo más inseguros?
+El otro día charrábamos que da pie a falta de control sobre los subdominios. 
 const userServiceStackWithDomain = new UserServiceStack(app, 'UserServiceStack', {
   hostedZone: domainStack.hostedZone,
   wildcard: domainStack.wildcardCertificate,

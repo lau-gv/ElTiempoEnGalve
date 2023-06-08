@@ -1,10 +1,9 @@
 import { getHistoricalDataDay, putHistoricalData } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
-import { returnMaxValue, returnMinValue } from "../../common/utils/utils";
 
 export async function updateHistoricalDayData(event: any, table_name: string){    
     try{
         const incomingData = JSON.parse(event.Payload.body) as StationData;
-        const today= Math.trunc(incomingData.datadatetime / 100000);
+        const today= datadatetimeToYYYYMM(incomingData.datadatetime);
         const actualHistoricalData = await getHistoricalDataDay(table_name, today, incomingData.stationId);
         var newHistoricalData : HistoricalDataDay = (actualHistoricalData) 
             ? getMaxMinValues(actualHistoricalData, incomingData)
@@ -28,6 +27,24 @@ export async function updateHistoricalDayData(event: any, table_name: string){
     }
 }
 
+//YYYYMMDD
+function datadatetimeToYYYYMM(datadatetime : number) : number{
+    return parseInt(datadatetime.toString().substring(0,8));
+}
+
+function getYear(actualHistoricalData: number): number {
+    return parseInt(actualHistoricalData.toString().substring(0,4));
+}
+function getMonth(actualHistoricalData: number): number {
+    const month =  parseInt(actualHistoricalData.toString().substring(4,6));
+    return month
+}
+function getDay(actualHistoricalData: number): number {
+    const day = parseInt(actualHistoricalData.toString().substring(6,8));
+    console.log(day);
+    return day;
+}
+
 //Probablemente esto no sea la mejor opción, porque provoco si o sí, que, si los datos no han variado,
 //se haga una consulta a BD de forma innecesaria. 
 //Sería mejor comprobar que TODOS los datos han cambmiado, han cambiado? pues insertamos, 
@@ -39,58 +56,65 @@ function getMaxMinValues(actualHistoricalData : HistoricalDataDay, incomingData 
     const historicalData : HistoricalDataDay = {
         stationId: actualHistoricalData.stationId,
         datadate: actualHistoricalData.datadate,
+        year: getYear(actualHistoricalData.datadate),
+        month: getMonth(actualHistoricalData.datadate),
+        day: getDay(actualHistoricalData.datadate),
+        maxTemperature: Math.max(actualHistoricalData.maxTemperature, incomingData.temperature),
 
-        maxTemperature: returnMaxValue(actualHistoricalData.maxTemperature, incomingData.temperature),
+        minTemperature: Math.min(actualHistoricalData.minTemperature, incomingData.temperature),
 
-        minTemperature: returnMinValue(actualHistoricalData.minTemperature, incomingData.temperature),
+        maxHumidity: Math.max(actualHistoricalData.maxHumidity, incomingData.humidity),
 
-        maxHumidity: returnMaxValue(actualHistoricalData.maxHumidity, incomingData.humidity),
+        minHumidity: Math.min(actualHistoricalData.minHumidity, incomingData.humidity),
 
-        minHumidity: returnMinValue(actualHistoricalData.minHumidity, incomingData.humidity),
+        maxBaromrelhpa: Math.max(actualHistoricalData.maxBaromrelhpa, incomingData.baromabshpa),
 
-        maxBaromrelhpa: returnMaxValue(actualHistoricalData.maxBaromrelhpa, incomingData.baromabshpa),
+        minBaromrelhpa: Math.min(actualHistoricalData.minBaromrelhpa, incomingData.baromabshpa),
 
-        minBaromrelhpa: returnMinValue(actualHistoricalData.minBaromrelhpa, incomingData.baromabshpa),
+        maxBaromabshpa: Math.max(actualHistoricalData.maxBaromabshpa, incomingData.baromrelhpa),
 
-        maxBaromabshpa: returnMaxValue(actualHistoricalData.maxBaromabshpa, incomingData.baromrelhpa),
+        minBaromabshpa: Math.min(actualHistoricalData.maxBaromabshpa, incomingData.baromrelhpa), 
 
-        minBaromabshpa: returnMinValue(actualHistoricalData.maxBaromabshpa, incomingData.baromrelhpa), 
+        maxRainrateinmm: Math.max(actualHistoricalData.maxRainrateinmm, incomingData.rainrateinmm),
 
-        maxRainrateinmm: returnMaxValue(actualHistoricalData.maxRainrateinmm, incomingData.rainrateinmm),
-
-        minRainrateinmm: returnMinValue(actualHistoricalData.minRainrateinmm, incomingData.rainrateinmm), 
+        minRainrateinmm: Math.min(actualHistoricalData.minRainrateinmm, incomingData.rainrateinmm), 
 
         acumulateDailyraininmm: incomingData.dailyraininmm, 
 
-        maxdailygust: returnMaxValue(actualHistoricalData.maxdailygust, incomingData.maxdailygust),
+        maxdailygust: Math.max(actualHistoricalData.maxdailygust, incomingData.maxdailygust),
 
-        maxSolarradiation: returnMaxValue(actualHistoricalData.maxSolarradiation, incomingData.solarradiation), 
+        maxSolarradiation: Math.max(actualHistoricalData.maxSolarradiation, incomingData.solarradiation), 
 
-        minSolarradiation: returnMinValue(actualHistoricalData.minSolarradiation, incomingData.solarradiation),
+        minSolarradiation: Math.min(actualHistoricalData.minSolarradiation, incomingData.solarradiation),
 
-        maxUv: returnMaxValue(actualHistoricalData.maxUv, incomingData.uv), 
+        maxUv: Math.max(actualHistoricalData.maxUv, incomingData.uv), 
   
-        minUv: returnMinValue(actualHistoricalData.minUv, incomingData.uv),
+        minUv: Math.min(actualHistoricalData.minUv, incomingData.uv),
 
         //Datos de dentro:
-        maxIndoortemp: returnMaxValue(actualHistoricalData.maxIndoortemp, incomingData.indoortempf),
+        maxIndoortemp: Math.max(actualHistoricalData.maxIndoortemp, incomingData.indoortempf),
 
-        minIndoortemp: returnMinValue(actualHistoricalData.minIndoortemp, incomingData.indoortempf),
+        minIndoortemp: Math.min(actualHistoricalData.minIndoortemp, incomingData.indoortempf),
 
-        maxIndoorhumidity: returnMaxValue(actualHistoricalData.maxIndoorhumidity, incomingData.indoorhumidity), 
+        maxIndoorhumidity: Math.max(actualHistoricalData.maxIndoorhumidity, incomingData.indoorhumidity), 
 
-        minIndoorhumidity: returnMinValue(actualHistoricalData.minIndoorhumidity, incomingData.indoorhumidity), 
+        minIndoorhumidity: Math.min(actualHistoricalData.minIndoorhumidity, incomingData.indoorhumidity), 
 
     };
 
     return historicalData;
 }
 
+//YYYYMMDD
+
 function stationDataToHistoricalData(incomingData : StationData) {
     
     const historicalData : HistoricalDataDay = {
         stationId: incomingData.stationId,
-        datadate: Math.trunc(incomingData.datadatetime / 100000),
+        datadate: datadatetimeToYYYYMM(incomingData.datadatetime),
+        year: getYear(datadatetimeToYYYYMM(incomingData.datadatetime)),
+        month: getMonth(datadatetimeToYYYYMM(incomingData.datadatetime)),
+        day: getDay(datadatetimeToYYYYMM(incomingData.datadatetime)),
         maxTemperature: incomingData.temperature,
         minTemperature: incomingData.temperature, 
         maxHumidity: incomingData.humidity, 

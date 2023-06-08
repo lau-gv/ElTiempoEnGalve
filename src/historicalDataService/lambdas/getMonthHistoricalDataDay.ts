@@ -1,8 +1,9 @@
 import { APIGatewayProxyEvent, Context } from "aws-lambda";
+import { getMonthHistoricalData } from "../controllers/getMonthHistoricalDataController";
 
 const TABLE_NAME = process.env.TABLE_NAME || '';
 
 export async function handler (event: APIGatewayProxyEvent, context: Context): Promise<any>{
     
-    console.log("todo");
+    return await getMonthHistoricalData(event, TABLE_NAME);
 }

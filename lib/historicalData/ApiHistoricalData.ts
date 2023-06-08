@@ -21,42 +21,55 @@ export class ApiHistoricalData extends Construct {
         super(scope, id);
 
         //Primero creamos las lambdas. Que son tres.
-        const getTodayHistoricalData = new NodejsFunction(this, 'GetTodayHistoricalData', {
+        const getTodayHistoricalDataDay = new NodejsFunction(this, 'GetTodayHistoricalDataDay', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
-            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getTodayHistoricalData.ts')),
+            functionName: "GetTodayHistoricalDataDay-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getTodayHistoricalDataDay.ts')),
             environment: {
                 TABLE_NAME: props.stationHistoricalDayDataTable.tableName
             }
         });
-        const getMonthHistoricalData = new NodejsFunction(this, 'GetMonthHistoricalData', {
+        const getMonthHistoricalDataDay = new NodejsFunction(this, 'GetMonthHistoricalData', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
-            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getMonthHistoricalData.ts')),
+            functionName: "GetMonthHistoricalDataDay-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getMonthHistoricalDataDay.ts')),
             environment: {
                 TABLE_NAME: props.stationHistoricalDayDataTable.tableName
             }
         });
-        const getYearHistoricalData = new NodejsFunction(this, 'GetYearHistoricalData', {
+        const getYearHistoricalDataDay = new NodejsFunction(this, 'GetYearHistoricalData', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
-            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getYearHistoricalData.ts')),
+            functionName: "GetYearHistoricalDataDay-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getYearHistoricalDataDay.ts')),
+            environment: {
+                TABLE_NAME: props.stationHistoricalDayDataTable.tableName
+            }
+        });
+        const getBetweenHistoricalDataDay = new NodejsFunction(this, 'GetBetweenHistoricalDataDay', {
+            runtime: Runtime.NODEJS_18_X,
+            handler: 'handler',
+            functionName: "GetBetweenHistoricalDataDay-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getHistoricalDataDayBetween.ts')),
             environment: {
                 TABLE_NAME: props.stationHistoricalDayDataTable.tableName
             }
         });
 
         //Les damos permisos de lectura sobre las tablas.
-        props.stationHistoricalDayDataTable.grantWriteData(getTodayHistoricalData);
-        props.stationHistoricalDayDataTable.grantWriteData(getMonthHistoricalData);
-        props.stationHistoricalDayDataTable.grantWriteData(getYearHistoricalData);
+        props.stationHistoricalDayDataTable.grantReadData(getTodayHistoricalDataDay);
+        props.stationHistoricalDayDataTable.grantReadData(getMonthHistoricalDataDay);
+        props.stationHistoricalDayDataTable.grantReadData(getYearHistoricalDataDay);
+        props.stationHistoricalDayDataTable.grantReadData(getBetweenHistoricalDataDay);
 
 
         //LA API
-        const api = new RestApi(this, 'ApiHistoricalDayData', {});
+        const api = new RestApi(this, 'ApiHistoricalData', {});
 
         //Los authorithers
-        const authorizer = new CognitoUserPoolsAuthorizer(this, 'HistoricalAuthorizer', {
+        const authorizer = new CognitoUserPoolsAuthorizer(this, 'HistoricalDataAuthorizer', {
             cognitoUserPools:[props.userPool],
             identitySource: 'method.request.header.Authorization'
         });
@@ -72,14 +85,18 @@ export class ApiHistoricalData extends Construct {
         
         //Ahora creamos los recursos
         const rootResource = api.root;
-        const historicalResource = rootResource.addResource('historical');
+        const historicalResource = rootResource.addResource('dayHistorical');
         const historicalDayResource = historicalResource.addResource('day');
         const historicalMonthResource = historicalResource.addResource('month');
-        const historicalYearResource = historicalResource.addResource('year');
+        const historicalBetweenResource = historicalResource.addResource('between');
+
+        const historicalMonth = rootResource.addResource('monthHistorical');
+        const historicalYearResource = historicalMonth.addResource('year');
         //Esto lo hacemos así porque la estación en forma wunderground envía 
         //una petición get. Que no POST.
-        historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalData), optionWithauth);
-        historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalData), optionWithauth);
-        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalData), optionWithauth);
+        historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), optionWithauth);
+        historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), optionWithauth);
+        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), optionWithauth);
+        historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay), optionWithauth);
     }
 }

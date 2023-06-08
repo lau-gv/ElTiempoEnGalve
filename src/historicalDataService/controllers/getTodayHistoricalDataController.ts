@@ -1,11 +1,9 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { parseJSON } from "../../common/utils/utils";
-import { MissingFieldError, handleError } from "../../common/utils/Validator";
-import { getAllStationsByUserDynamo } from "../../common/services/repository/EstacionRepository/DynamoStationDB";
+import { MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
 import { validateAsGetPeticion } from "./validatorGetData";
 import { getHistoricalDataDay } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
 
-export async function getTodayHistoricalData(event: APIGatewayProxyEvent, tableName : string){
+export async function getTodayHistoricalDataDay(event: APIGatewayProxyEvent, tableName : string){
     try{
         if(!event.queryStringParameters){
             return {
@@ -17,21 +15,46 @@ export async function getTodayHistoricalData(event: APIGatewayProxyEvent, tableN
             };
         }        
         
-        validateAsGetPeticion(event);
+        validatePetition(event);
         const stationId = event.queryStringParameters['stationId'];
         const datadate = event.queryStringParameters['datadate'];
-        const stations = await getHistoricalDataDay(tableName, parseInt(datadate!), stationId!);
-        console.log(stations);
+        const historicalDataDay = await getHistoricalDataDay(tableName, parseInt(datadate!), stationId!);
         
         return {
             statusCode: 200, 
-            body: JSON.stringify((stations)),
+            body: JSON.stringify((historicalDataDay ? historicalDataDay : {})),
             headers: {
                 'Content-Type': 'application/json',
             }
         };
     
     } catch (error : any){
+        console.log(error);
         return handleError(error);
     }
 }
+
+export function validatePetition(event: APIGatewayProxyEvent) {
+    const allowedFields = ['stationId', 'datadate'];
+    const dataDateRegex = /^\d{8}$/;
+  
+    const arg = event.queryStringParameters;
+  
+    if (!arg) {
+      throw new Error('No se encontraron parámetros en la solicitud');
+    }
+  
+    for (const field in arg) {
+      if (!allowedFields.includes(field)) {
+        throw new UnexpectedFieldError(`${field}`);
+      }
+    }
+  
+    if (!arg.stationId) {
+      throw new MissingFieldError('stationId');
+    }
+  
+    if (!arg.datadate || !dataDateRegex.test(arg.datadate)) {
+      throw new MissingFieldError('datadate');
+    }
+  }

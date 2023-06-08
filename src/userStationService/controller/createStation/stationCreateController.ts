@@ -8,9 +8,6 @@ import { StationType, WeatherStationModel } from "../../model/WeatherStationMode
 
 export async function createStation(event: APIGatewayProxyEvent, tableName : string){
 
-    console.log('StationTypeStationType!!!!: {StationType.ecowitt.valueOf()}');
-    console.log(StationType.ecowitt);
-    console.log(StationType.ecowitt.valueOf());
     try{
         if(!event.body){
             return {
@@ -24,8 +21,7 @@ export async function createStation(event: APIGatewayProxyEvent, tableName : str
                 }
             };
         }
-        console.log('StationTypeStationType!!!!: {StationType.ecowitt.valueOf()}');
-        console.log(StationType.ecowitt);
+
         const data = parseJSON(event.body)
         validateAsStationToCreate(data);
         data.stationId = createRandomId();

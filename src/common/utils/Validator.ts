@@ -4,6 +4,12 @@ export class MissingFieldError extends Error {
     }
 }
 
+export class IncompleteBodyError extends Error {
+  constructor() {
+      super('cuerpo de mensaje erroneo o incompleto')
+  }
+}
+
 export class UnexpectedFieldError extends Error {
   constructor(unexpectedField: string) {
       super(`Value for ${unexpectedField} not expected!`)
@@ -19,13 +25,22 @@ export function handleError(error : any){
           statusCode: 400,
           body: JSON.stringify(`${error.message}`)
         };
-      } else {
-        return {
-            statusCode: 500,
-            body: JSON.stringify(`${error.message}`),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        };
-      }
+    } else if(error instanceof IncompleteBodyError){
+      return {
+        statusCode: 400,
+        body: JSON.stringify(`${error.message}`),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      };
+    }
+    else {
+      return {
+          statusCode: 500,
+          body: JSON.stringify(`${error.message}`),
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      };
+    }
 }

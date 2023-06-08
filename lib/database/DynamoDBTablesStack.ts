@@ -68,7 +68,11 @@ export class DynamoDBTablesStack extends Stack{
           //billingMode: BillingMode.PAY_PER_REQUEST
           removalPolicy: RemovalPolicy.RETAIN
         });
-        
+      
+      //Use the KeyConditionExpression parameter to provide a specific value for the partition key. The Query operation will return all of the items from the table or index with that partition key value. You can optionally narrow the 
+      //scope of the Query operation by specifying a sort key value and a comparison operator in 
+      //KeyConditionExpression.
+      //Hay que escoger muy bien como modelamos nuestras bases de datos.
       this.stationHistoricalDayDataTable = new Table(this, `${STATION_HISTORICAL_DATA_DAY}`, {
           partitionKey: { name: 'stationId', type: AttributeType.STRING },
           sortKey: {name: 'datadate', type: AttributeType.NUMBER},
