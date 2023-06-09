@@ -27,6 +27,7 @@ const userServiceStack = new UserServiceStack(app, 'UserStationServiceStack', {
 });
 
 const apiHistoricalData = new HistoricalDataStack(app, 'HistoricalServiceStack', {
+  stationDataTable : databaseStack.stationDataTable,
   stationHistoricalDayDataTable: databaseStack.stationHistoricalDayDataTable,
   userPool: authorizerStack.userPool,
 })

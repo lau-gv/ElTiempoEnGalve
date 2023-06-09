@@ -1,9 +1,7 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { IncompleteBodyError, MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
-import { getAllStationsByUserDynamo } from "../../common/services/repository/EstacionRepository/DynamoStationDB";
-import { validateAsGetPeticion } from "./validatorGetData";
-import { getHistoricalDataDay } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+import { handleError, UnexpectedFieldError, MissingFieldError } from "../../../common/utils/Validator";
 import { getHistoricalDataBetweenCommon } from "./getHistoricalDataBetweenDate";
+
 
 export async function getMonthHistoricalData(event: APIGatewayProxyEvent, tableName : string){
   

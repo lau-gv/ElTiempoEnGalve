@@ -1,14 +1,19 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { IncompleteBodyError, MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
-import { getAllStationsByUserDynamo } from "../../common/services/repository/EstacionRepository/DynamoStationDB";
-import { validateAsGetPeticion } from "./validatorGetData";
-import { getHistoricalDataDay } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+import { handleError, UnexpectedFieldError, MissingFieldError } from "../../../common/utils/Validator";
 import { getHistoricalDataBetweenCommon } from "./getHistoricalDataBetweenDate";
+import { getHistoricalDataDayBetween } from "../../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
 
 export async function getBetweenHistoricalDataDayController(event: APIGatewayProxyEvent, tableName : string){
   
   try{
-    const historicalDatasDay =  await getHistoricalDataBetweenCommon(event, tableName, validateData, returnStartDate, returnEndDate);
+    
+    validateData(event);
+
+    const startDatadate = event.queryStringParameters!['startDay']!;;
+    const endDatadate = event.queryStringParameters!['endDay']!;
+    const stationId = event.queryStringParameters!['stationId']!;
+    const historicalDatasDay = await getHistoricalDataDayBetween(tableName, stationId!, startDatadate, endDatadate);
+
     return {
       statusCode: 200, 
       body: JSON.stringify((historicalDatasDay)),
@@ -22,13 +27,6 @@ export async function getBetweenHistoricalDataDayController(event: APIGatewayPro
   }
 }
 
-function returnStartDate(yyyymmdd : string) : string {
-  return yyyymmdd;
-}
-
-function returnEndDate(yyyymmdd : string) : string {
-  return yyyymmdd;
-}
 
 function validateData(event: APIGatewayProxyEvent) {
   const allowedFields = ['stationId', 'startDay', 'endDay' ];
@@ -51,7 +49,11 @@ function validateData(event: APIGatewayProxyEvent) {
     throw new MissingFieldError('stationId');
   }
 
-  if (!arg.datadate || !dataDateRegex.test(arg.datadate)) {
-    throw new MissingFieldError('month');
+  if (!arg.startDay || !dataDateRegex.test(arg.startDay)) {
+    throw new MissingFieldError('startDay');
+  }
+
+  if (!arg.endDay || !dataDateRegex.test(arg.endDay)) {
+    throw new MissingFieldError('endDay');
   }
   }

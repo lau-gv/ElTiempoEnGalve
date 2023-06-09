@@ -1,16 +1,17 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { IncompleteBodyError, handleError } from "../../common/utils/Validator";
-import { getHistoricalDataDayBetween } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+import { IncompleteBodyError } from "../../../common/utils/Validator";
+import { getHistoricalDataDayBetween } from "../../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+
 
 export async function getHistoricalDataBetweenCommon(event: APIGatewayProxyEvent, tableName : string,
   validateData: (event: APIGatewayProxyEvent) => void, 
   startDateFunction: (receivedatadate: string) => string,
   endDateFunction: (receivedatadate: string) => string,
   ) : Promise <HistoricalDataDay[] | undefined>{
-    try{
+
       if(!event.queryStringParameters){
         throw new IncompleteBodyError();
-      }        
+      }     
 
       validateData(event);
       
@@ -19,12 +20,9 @@ export async function getHistoricalDataBetweenCommon(event: APIGatewayProxyEvent
       const startDatadate = startDateFunction(datadate);
       const endDatadate = endDateFunction(datadate);
       const historicalDatasDay = await getHistoricalDataDayBetween(tableName, stationId!, startDatadate, endDatadate);
-
       
       return historicalDatasDay;    
-    } catch (error : any){
-        throw new Error(error);
-    }
+    
 }
 
 

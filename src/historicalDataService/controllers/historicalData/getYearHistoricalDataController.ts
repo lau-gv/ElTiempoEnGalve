@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
 import { getHistoricalDataBetweenCommon } from "./getHistoricalDataBetweenDate";
+import { handleError, UnexpectedFieldError, MissingFieldError } from "../../../common/utils/Validator";
 
 export async function getYearHistoricalData(event: APIGatewayProxyEvent, tableName : string){
   

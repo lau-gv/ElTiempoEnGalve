@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { MissingFieldError, UnexpectedFieldError, handleError } from "../../common/utils/Validator";
-import { validateAsGetPeticion } from "./validatorGetData";
-import { getHistoricalDataDay } from "../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+import { getHistoricalDataDay } from "../../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+import { handleError, UnexpectedFieldError, MissingFieldError } from "../../../common/utils/Validator";
+
 
 export async function getTodayHistoricalDataDay(event: APIGatewayProxyEvent, tableName : string){
     try{

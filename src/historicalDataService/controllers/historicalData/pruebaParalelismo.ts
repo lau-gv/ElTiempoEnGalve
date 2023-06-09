@@ -1,5 +1,3 @@
-import { APIGatewayProxyEvent } from "aws-lambda";
-import { getHistoricalDataBetweenCommon } from "./getHistoricalDataBetweenDate";
 
 async function calcularValores(objetos: HistoricalDataDay[]): Promise<Map<number, HistoricalDataDay>> {
   const result = await Promise.all(

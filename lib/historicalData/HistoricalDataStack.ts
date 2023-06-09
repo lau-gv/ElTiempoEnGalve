@@ -13,6 +13,7 @@ interface HistoricalDataStackProps extends StackProps, ApiHistoricalDataProps{}
         //Aquí creamos nuestros constructores.
         //Primero el api Receiver.
         const apiHistoricalDayData = new ApiHistoricalData(this, 'ApiHistoricalDayData', {
+            stationDataTable : props.stationDataTable,
             stationHistoricalDayDataTable: props.stationHistoricalDayDataTable,
             userPool: props.userPool,
           })

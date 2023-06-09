@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, Context } from "aws-lambda";
-import { getYearHistoricalData } from "../controllers/getYearHistoricalDataController";
+import { getYearHistoricalData } from "../controllers/historicalData/getYearHistoricalDataController";
 
 const TABLE_NAME = process.env.TABLE_NAME || '';
 

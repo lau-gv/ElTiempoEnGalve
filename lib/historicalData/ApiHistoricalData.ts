@@ -7,7 +7,7 @@ import { Table } from "aws-cdk-lib/aws-dynamodb";
 import { IUserPool } from "aws-cdk-lib/aws-cognito";
 
 export interface ApiHistoricalDataProps {
-  
+    stationDataTable: Table;
     stationHistoricalDayDataTable: Table;
     userPool : IUserPool;
 
@@ -39,15 +39,6 @@ export class ApiHistoricalData extends Construct {
                 TABLE_NAME: props.stationHistoricalDayDataTable.tableName
             }
         });
-        const getYearHistoricalDataDay = new NodejsFunction(this, 'GetYearHistoricalData', {
-            runtime: Runtime.NODEJS_18_X,
-            handler: 'handler',
-            functionName: "GetYearHistoricalDataDay-ServiceApi",
-            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getYearHistoricalDataDay.ts')),
-            environment: {
-                TABLE_NAME: props.stationHistoricalDayDataTable.tableName
-            }
-        });
         const getBetweenHistoricalDataDay = new NodejsFunction(this, 'GetBetweenHistoricalDataDay', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
@@ -58,11 +49,32 @@ export class ApiHistoricalData extends Construct {
             }
         });
 
+        const getYearHistoricalDataDay = new NodejsFunction(this, 'GetYearHistoricalData', {
+            runtime: Runtime.NODEJS_18_X,
+            handler: 'handler',
+            functionName: "GetYearHistoricalDataYear-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getYearHistoricalDataDay.ts')),
+            environment: {
+                TABLE_NAME: props.stationHistoricalDayDataTable.tableName
+            }
+        });
+        const getCurrentData = new NodejsFunction(this, 'GetCurrentData', {
+            runtime: Runtime.NODEJS_18_X,
+            handler: 'handler',
+            functionName: "GetCurrentDataCurrentHistorical-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getCurrentDataLambda.ts')),
+            environment: {
+                TABLE_NAME: props.stationDataTable.tableName
+            }
+        });
+
         //Les damos permisos de lectura sobre las tablas.
         props.stationHistoricalDayDataTable.grantReadData(getTodayHistoricalDataDay);
         props.stationHistoricalDayDataTable.grantReadData(getMonthHistoricalDataDay);
-        props.stationHistoricalDayDataTable.grantReadData(getYearHistoricalDataDay);
         props.stationHistoricalDayDataTable.grantReadData(getBetweenHistoricalDataDay);
+        props.stationHistoricalDayDataTable.grantReadData(getYearHistoricalDataDay);
+        
+        props.stationDataTable.grantReadData(getCurrentData);
 
 
         //LA API
@@ -92,11 +104,16 @@ export class ApiHistoricalData extends Construct {
 
         const historicalMonth = rootResource.addResource('monthHistorical');
         const historicalYearResource = historicalMonth.addResource('year');
-        //Esto lo hacemos así porque la estación en forma wunderground envía 
-        //una petición get. Que no POST.
+
+        const todayData = rootResource.addResource('currentData');
+
         historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), optionWithauth);
         historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), optionWithauth);
-        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), optionWithauth);
         historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay), optionWithauth);
+        
+        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), optionWithauth);
+
+        todayData.addMethod('GET', new LambdaIntegration(getCurrentData), optionWithauth);
+        
     }
 }
