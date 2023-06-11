@@ -1,5 +1,5 @@
 //Cambia que le quitamos el authStation xD.
-interface StationDataGetDto { 
+interface StationPrivateDataGetDto { 
     //DatosDeFuera.
     stationId: string;
     datadatetime: number; 
@@ -20,6 +20,10 @@ interface StationDataGetDto {
     maxdailygust: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
     solarradiation: number; //radiación solar en vatios por metro cuadrado (W/m2) (567.79).
     uv: number; //índice ultravioleta (UV) (5).
+    lowbatt: number; //estado de la batería de la estación meteorológica (0 indica que la batería está baja y 1 que está bien).
+    freq?: number; //frecuencia de transmisión de la estación meteorológica en megahertz (MHz) (868M).
+    model: number; //modelo de la estación meteorológica (WS2900_V2.01.18).
+    interval: number; //intervalo de tiempo entre transmisiones de datos de la estación meteorológica en segundos (30).
     dewptfC?: number; //Punto de rocío en grados Celsius.
     windchillC?: number;
     //Datos de dentro:
@@ -27,7 +31,7 @@ interface StationDataGetDto {
     indoorhumidity: number; //Humedad relativa interior en porcentaje (%).
 };
 
-export function stationDataToStationDataGetDto(stationData : StationData) : StationDataGetDto {
+export function stationDataToStationPrivateDataGetDto(stationData : StationData) : StationPrivateDataGetDto {
     return {
         stationId: stationData.stationId, 
         datadatetime: stationData.datadatetime, 
@@ -48,6 +52,10 @@ export function stationDataToStationDataGetDto(stationData : StationData) : Stat
         maxdailygust: stationData.maxdailygust, 
         solarradiation: stationData.solarradiation, 
         uv: stationData. uv,
+        lowbatt: stationData.lowbatt, 
+        freq: stationData.freq ? stationData.freq : undefined, 
+        model: stationData.model, 
+        interval: stationData.interval, 
         dewptfC: stationData.dewptfC ? stationData.dewptfC : undefined,
         windchillC: stationData.windchillC ? stationData.windchillC : undefined,
         //Datos de dentro:

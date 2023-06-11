@@ -20,17 +20,16 @@ PASSKEY=1234&stationtype=EasyWeatherPro_V5.1.1&runtime=4&dateutc=2023-04-24+23:4
 ###
 POST {{cloudfront}}
 Content-Type: application/json
-
 {   
     "PASSKEY": "599E78B1B5EA0911BF1EE9940954FFA2",
     "stationtype": "EasyWeatherPro_V5.1.1",
     "runtime": "2",
     "dateutc": "2023-04-24 23:13:44",
-    "tempinf": "85.7",
+    "tempinf": "100.7",
     "humidityin": "42",
     "baromrelin": "29.926",
     "baromabsin": "26.164",
-    "tempf": "50.3",
+    "tempf": "40.3",
     "humidity": "75",
     "winddir": "178",
     "windspeedmph": "0.00",

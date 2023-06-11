@@ -39,9 +39,9 @@ export function getTimeInSpain(): string {
     const date = new Date();
     const currentTime = date.toLocaleString('es-ES', {
             timeZone: 'Europe/Madrid',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
             hour12: false
     }).replace(/:|\s/g, '');
     const month = (date.getMonth()+ 1).toString().length !=2 

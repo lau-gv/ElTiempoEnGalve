@@ -67,13 +67,13 @@ function getMaxMinValues(actualHistoricalData : HistoricalDataDay, incomingData 
 
         minHumidity: Math.min(actualHistoricalData.minHumidity, incomingData.humidity),
 
-        maxBaromrelhpa: Math.max(actualHistoricalData.maxBaromrelhpa, incomingData.baromabshpa),
+        maxBaromrelhpa: Math.max(actualHistoricalData.maxBaromrelhpa, incomingData.baromrelhpa),
 
-        minBaromrelhpa: Math.min(actualHistoricalData.minBaromrelhpa, incomingData.baromabshpa),
+        minBaromrelhpa: Math.min(actualHistoricalData.minBaromrelhpa, incomingData.baromrelhpa),
 
-        maxBaromabshpa: Math.max(actualHistoricalData.maxBaromabshpa, incomingData.baromrelhpa),
+        maxBaromabshpa: Math.max(actualHistoricalData.maxBaromabshpa, incomingData.baromabshpa),
 
-        minBaromabshpa: Math.min(actualHistoricalData.maxBaromabshpa, incomingData.baromrelhpa), 
+        minBaromabshpa: Math.min(actualHistoricalData.maxBaromabshpa, incomingData.baromabshpa), 
 
         maxRainrateinmm: Math.max(actualHistoricalData.maxRainrateinmm, incomingData.rainrateinmm),
 
@@ -81,7 +81,13 @@ function getMaxMinValues(actualHistoricalData : HistoricalDataDay, incomingData 
 
         acumulateDailyraininmm: incomingData.dailyraininmm, 
 
+        maxwindspeedkmh: Math.max(actualHistoricalData.maxwindspeedkmh, incomingData.windspeedkmh), 
+        
+        minwindspeedkmh: Math.min(actualHistoricalData.minwindspeedkmh, incomingData.windspeedkmh),        
+
         maxdailygust: Math.max(actualHistoricalData.maxdailygust, incomingData.maxdailygust),
+
+        mindailygust: Math.min(actualHistoricalData.mindailygust, incomingData.maxdailygust), 
 
         maxSolarradiation: Math.max(actualHistoricalData.maxSolarradiation, incomingData.solarradiation), 
 
@@ -119,14 +125,17 @@ function stationDataToHistoricalData(incomingData : StationData) {
         minTemperature: incomingData.temperature, 
         maxHumidity: incomingData.humidity, 
         minHumidity: incomingData.humidity,
-        maxBaromrelhpa: incomingData.baromabshpa,
-        minBaromrelhpa: incomingData.baromabshpa,
-        maxBaromabshpa: incomingData.baromrelhpa, 
-        minBaromabshpa: incomingData.baromrelhpa,
+        maxBaromrelhpa: incomingData.baromrelhpa,
+        minBaromrelhpa: incomingData.baromrelhpa,
+        maxBaromabshpa: incomingData.baromabshpa, 
+        minBaromabshpa: incomingData.baromabshpa,
         maxRainrateinmm: incomingData.rainrateinmm,
         minRainrateinmm: incomingData.rainrateinmm,
         acumulateDailyraininmm: incomingData.dailyraininmm, 
+        maxwindspeedkmh: incomingData.windspeedkmh, 
+        minwindspeedkmh: incomingData.windspeedkmh,      
         maxdailygust: incomingData.maxdailygust,
+        mindailygust: incomingData.maxdailygust, 
         maxSolarradiation: incomingData.solarradiation ,
         minSolarradiation: incomingData.solarradiation, 
         maxUv:incomingData.uv,

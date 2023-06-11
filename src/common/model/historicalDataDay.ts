@@ -16,7 +16,10 @@ interface HistoricalDataDay {
     maxRainrateinmm:number; //indica la tasa de precipitación actual en mm por hora. //indica la tasa de precipitación actual en mm por hora.
     minRainrateinmm:number; //indica la tasa de precipitación actual en mm por hora. //indica la tasa de precipitación actual en mm por hora.
     acumulateDailyraininmm: number; // dirección del viento en grados (°) (59).
+    maxwindspeedkmh: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
+    minwindspeedkmh: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
     maxdailygust: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
+    mindailygust: number; //ráfaga máxima diaria de viento en km por hora (mph) (13.65).
     maxSolarradiation: number; //radiación solar en vatios por metro cuadrado (W/m2) (567.79).
     minSolarradiation: number; //radiación solar en vatios por metro cuadrado (W/m2) (567.79).
     maxUv: number; //índice ultravioleta (UV) (5).

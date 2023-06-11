@@ -27,6 +27,6 @@ interface StationData {
     dewptfC?: number; //Punto de rocío en grados Celsius.
     windchillC?: number;
     //Datos de dentro:
-    indoortempf: number; //Temperatura interior en grados Fahrenheit.
+    indoortempf: number; //Temperatura interior en grados C. //pone f pero yo ya no lo cambio xD.
     indoorhumidity: number; //Humedad relativa interior en porcentaje (%).
 };
