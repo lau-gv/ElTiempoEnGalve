@@ -7,15 +7,17 @@ export async function getYearHistoricalData(event: APIGatewayProxyEvent, tableNa
   try{
     const historicalDatasDay =  await getHistoricalDataBetweenCommon(event, tableName, validateData, returnStartDate, returnEndDate);
     console.log(historicalDatasDay);
-    var result : Map<number, HistoricalDataMonth>;
+    //var result : Map<number, HistoricalDataMonth>;
+    var result : HistoricalDataMonth[];
     if(historicalDatasDay){
-        console.log("estoy dentro del if, así que voy a  calcular los datos")
         result = calculateMaxMinsByMonth(historicalDatasDay); 
     }
     
     return {
       statusCode: 200, 
-      body: JSON.stringify((historicalDatasDay ? (Object.fromEntries(result!)) : historicalDatasDay)),
+      //body: JSON.stringify((historicalDatasDay ? (Object.fromEntries(result!)) : historicalDatasDay)),
+      body: JSON.stringify(historicalDatasDay ? result! : historicalDatasDay),
+
       headers: {
           'Content-Type': 'application/json',
       }
@@ -61,7 +63,7 @@ function validateData(event: APIGatewayProxyEvent) {
 }
 
 //Se me queda la algoritmia coja aquí. Orden O(n)
-function calculateMaxMinsByMonth(historicalDatasDay : HistoricalDataDay[]): Map<number, HistoricalDataMonth>{
+function calculateMaxMinsByMonth(historicalDatasDay : HistoricalDataDay[]): HistoricalDataMonth[]{
 
   var map  = new Map<number, HistoricalDataMonth>();
 
@@ -79,7 +81,8 @@ function calculateMaxMinsByMonth(historicalDatasDay : HistoricalDataDay[]): Map<
     console.log(map.size);
     console.log(actualHistoricalDataDay);
   });
-  return map;
+
+  return Array.from(map.values());;
 };
 
 function getMaxMin(actualHistoricalDataDay : HistoricalDataMonth, element : HistoricalDataDay) : HistoricalDataMonth {  
