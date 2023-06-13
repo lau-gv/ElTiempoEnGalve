@@ -101,7 +101,7 @@ function getMaxMin(actualHistoricalDataDay : HistoricalDataMonth, element : Hist
     minBaromabshpa: Math.min(actualHistoricalDataDay.minBaromabshpa, element.minBaromabshpa),
     maxRainrateinmm: Math.max(actualHistoricalDataDay.maxRainrateinmm, element.maxRainrateinmm),
     minRainrateinmm: Math.min(actualHistoricalDataDay.minRainrateinmm, element.minRainrateinmm),
-    acumulateDailyraininmm: Math.max(actualHistoricalDataDay.acumulateDailyraininmm, element.acumulateDailyraininmm),
+    acumulateDailyraininmm: actualHistoricalDataDay.acumulateDailyraininmm + element.acumulateDailyraininmm,
     maxwindspeedkmh: Math.max(actualHistoricalDataDay.maxwindspeedkmh, element.maxwindspeedkmh),
     minwindspeedkmh: Math.min(actualHistoricalDataDay.minwindspeedkmh, element.minwindspeedkmh),
     maxdailygust: Math.max(actualHistoricalDataDay.maxdailygust, element.maxdailygust),
