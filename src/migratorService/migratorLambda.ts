@@ -137,7 +137,7 @@ export async function updateHistoricalDayData(event: any, table_name: string){
     
             minRainrateinmm: Math.min(actualHistoricalData.minRainrateinmm, incomingData.rainrateinmm), 
     
-            acumulateDailyraininmm: Math.max(actualHistoricalData.minRainrateinmm, incomingData.dailyraininmm), 
+            acumulateDailyraininmm: Math.max(actualHistoricalData.acumulateDailyraininmm, incomingData.dailyraininmm), 
     
             maxwindspeedkmh: Math.max(actualHistoricalData.maxwindspeedkmh, incomingData.windspeedkmh), 
             
