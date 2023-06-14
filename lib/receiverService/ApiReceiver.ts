@@ -23,7 +23,7 @@ export class ApiReceiver extends Construct {
         this.receiverLambda = new NodejsFunction(this, 'ReceiverLambda', {
             runtime: Runtime.NODEJS_18_X,
             handler: 'handler',
-            entry: (join(__dirname, '..','..',  'src', 'receiverService', 'lambdas', 'receiverLambda.ts')),
+            entry: (join(__dirname, '..','..',  'src', 'receiverService', 'lambdas', 'ReceiverLambda.ts')),
             environment: {
                 QUEUE: this.queue.queueUrl,
             }
