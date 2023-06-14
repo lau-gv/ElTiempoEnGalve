@@ -16,7 +16,7 @@ Authorization: {{token}}
 
 ###
 
-GET   {{endpoint}}/dayHistorical/between?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&startDay=20230601&endDay=20230608
+GET   {{endpoint}}/dayHistorical/between?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&startDay=20230801&endDay=20230614
 Authorization: {{token}}
 
 ###

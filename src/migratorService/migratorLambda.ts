@@ -28,7 +28,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
                 }
         
                 const data = parseJSON(event.body)
-                await insertStationData(tableName!, data);
+                //await insertStationData(tableName!, data);
                 await updateHistoricalDayData(data, tableName2!);
                 
                 return {
@@ -46,23 +46,13 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
 }
 
-function getItemData(event: APIGatewayProxyEvent) {
-
-        var item;
-    
-        if (event.httpMethod === 'POST'){
-                item = getEventBodyVariableHeaders(event);
-        }else if (event.httpMethod === 'GET'){
-                item = event.queryStringParameters === null ? {} : 
-                JSON.parse(JSON.stringify(event.queryStringParameters));
-        }
-        return item;
-    }
 
 export async function updateHistoricalDayData(event: any, table_name: string){    
         try{
             const incomingData = event as StationData;
-            const actualHistoricalData = await getHistoricalDataDay(table_name, incomingData.datadatetime, incomingData.stationId);
+            //El error esta en que tengo que extraer la fecha correcta de StationData. 
+            const datadatetime = datadatetimeToYYYYMM(incomingData.datadatetime);
+            const actualHistoricalData = await getHistoricalDataDay(table_name, datadatetime, incomingData.stationId);
             var newHistoricalData : HistoricalDataDay = (actualHistoricalData) 
                 ? getMaxMinValues(actualHistoricalData, incomingData)
                 : stationDataToHistoricalData(incomingData);
@@ -102,6 +92,7 @@ export async function updateHistoricalDayData(event: any, table_name: string){
         console.log(day);
         return day;
     }
+
     
     //Probablemente esto no sea la mejor opción, porque provoco si o sí, que, si los datos no han variado,
     //se haga una consulta a BD de forma innecesaria. 
@@ -137,7 +128,7 @@ export async function updateHistoricalDayData(event: any, table_name: string){
     
             minRainrateinmm: Math.min(actualHistoricalData.minRainrateinmm, incomingData.rainrateinmm), 
     
-            acumulateDailyraininmm: Math.max(actualHistoricalData.minRainrateinmm, incomingData.dailyraininmm), 
+            acumulateDailyraininmm: Math.max(actualHistoricalData.acumulateDailyraininmm, incomingData.dailyraininmm), 
     
             maxwindspeedkmh: Math.max(actualHistoricalData.maxwindspeedkmh, incomingData.windspeedkmh), 
             
