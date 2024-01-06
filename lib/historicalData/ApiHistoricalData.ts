@@ -79,19 +79,19 @@ export class ApiHistoricalData extends Construct {
         const api = new RestApi(this, 'ApiHistoricalData', {});
 
         //Los authorithers
-        const authorizer = new CognitoUserPoolsAuthorizer(this, 'HistoricalDataAuthorizer', {
+        /*const authorizer = new CognitoUserPoolsAuthorizer(this, 'HistoricalDataAuthorizer', {
             cognitoUserPools:[props.userPool],
             identitySource: 'method.request.header.Authorization'
         });
 
-        authorizer._attachToApi(api);
-
+        authorizer._attachToApi(api);*/
+        /*
         const optionWithauth : MethodOptions = {
             authorizationType: AuthorizationType.COGNITO,
             authorizer: {
                 authorizerId: authorizer.authorizerId
             }
-        }
+        }*/
         
         //Ahora creamos los recursos
         const rootResource = api.root;
@@ -105,13 +105,21 @@ export class ApiHistoricalData extends Construct {
 
         const todayData = rootResource.addResource('currentData');
 
-        historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), optionWithauth);
-        historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), optionWithauth);
-        historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay), optionWithauth);
+        historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay));
+        historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay));
+        historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay));
         
-        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), optionWithauth);
+        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay));
 
-        todayData.addMethod('GET', new LambdaIntegration(getCurrentData), optionWithauth);
+        todayData.addMethod('GET', new LambdaIntegration(getCurrentData));
+        //CON AUTENTICACION DE COGNITO
+        //historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), optionWithauth);
+        //historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), optionWithauth);
+        //historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay), optionWithauth);
+        //
+        //historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), optionWithauth);
+        //
+        //todayData.addMethod('GET', new LambdaIntegration(getCurrentData), optionWithauth);
         
     }
 }
