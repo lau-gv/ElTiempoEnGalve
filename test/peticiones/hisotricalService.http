@@ -16,8 +16,7 @@ x-api-key: {{api_key}}
 //Authorization: {{token}}
 
 ###
-
-GET   {{endpoint}}/dayHistorical/between?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&startDay=20230801&endDay=20230614
+GET   {{endpoint}}/dayHistorical/between?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&startDay=20230801&endDay=20230801
 //Authorization: {{token}}
 x-api-key: {{api_key}}
 ###

@@ -21,8 +21,7 @@ export async function getHistoricalDataBetweenCommon(event: APIGatewayProxyEvent
       const endDatadate = endDateFunction(datadate);
       const historicalDatasDay = await getHistoricalDataDayBetween(tableName, stationId!, startDatadate, endDatadate);
       
-      return historicalDatasDay;    
-    
+      return historicalDatasDay;        
 }
 
 

@@ -67,6 +67,16 @@ export class ApiHistoricalData extends Construct {
             }
         });
 
+        const getStationBetweenData = new NodejsFunction(this, 'GetStationBetweenData', {
+            runtime: Runtime.NODEJS_18_X,
+            handler: 'handler',
+            functionName: "GetStationHistoricalDataBetween-ServiceApi",
+            entry: (join(__dirname, '..','..',  'src', 'historicalDataService', 'lambdas', 'getBetweenStationData.ts')),
+            environment: {
+                TABLE_NAME: props.stationDataTable.tableName
+            }
+        });
+
         //Les damos permisos de lectura sobre las tablas.
         props.stationHistoricalDayDataTable.grantReadData(getTodayHistoricalDataDay);
         props.stationHistoricalDayDataTable.grantReadData(getMonthHistoricalDataDay);
@@ -74,6 +84,7 @@ export class ApiHistoricalData extends Construct {
         props.stationHistoricalDayDataTable.grantReadData(getYearHistoricalDataDay);
         
         props.stationDataTable.grantReadData(getCurrentData);
+        props.stationDataTable.grantReadData(getStationBetweenData);
 
 
         //LA API
@@ -107,6 +118,8 @@ export class ApiHistoricalData extends Construct {
         const historicalYearResource = historicalMonth.addResource('year');
 
         const todayData = rootResource.addResource('currentData');
+        const stationHistoricalData = rootResource.addResource('stationHistorical');
+        const betweenStationHistorical = stationHistoricalData.addResource('between');
 
         historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), {apiKeyRequired: true,});
         historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), {apiKeyRequired: true,});
@@ -115,6 +128,7 @@ export class ApiHistoricalData extends Construct {
         historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), {apiKeyRequired: true,});
 
         todayData.addMethod('GET', new LambdaIntegration(getCurrentData), {apiKeyRequired: true,});
+        betweenStationHistorical.addMethod('GET', new LambdaIntegration(getStationBetweenData), {apiKeyRequired: true,});
 
         new CfnOutput(this, 'API Key historical data ID', {
             value: apiKey.keyId,

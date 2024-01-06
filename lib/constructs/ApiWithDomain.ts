@@ -19,7 +19,6 @@ export class ApiWithDomain extends Construct {
     constructor(scope: Construct, id: string, props: ApiWithDomainProps) {
         super(scope, id);
 
-        
         this.api = new RestApi(this, props.apiId, {
             domainName: {
                 domainName: props.domain,

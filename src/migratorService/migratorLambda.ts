@@ -13,35 +13,35 @@ const tableName2 = process.env.TABLE_NAME2;
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<any>{
 
-        try{
-                if(!event.body){
-                    return {
-                        statusCode: 400, 
-                        body: JSON.stringify({
-                            error: "solicitud incompleta",
-                            message: 'cuerpo de mensaje erroneo',
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    };
+    try{
+        if(!event.body){
+            return {
+                statusCode: 400, 
+                body: JSON.stringify({
+                    error: "solicitud incompleta",
+                    message: 'cuerpo de mensaje erroneo',
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
                 }
+            };
+        }
+
+        const data = parseJSON(event.body)
+        //await insertStationData(tableName!, data);
+        await updateHistoricalDayData(data, tableName2!);
         
-                const data = parseJSON(event.body)
-                //await insertStationData(tableName!, data);
-                await updateHistoricalDayData(data, tableName2!);
-                
-                return {
-                    statusCode: 201, 
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                };
-            
-            } catch (error : any){
-                return handleError(error);
+        return {
+            statusCode: 201, 
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
             }
+        };
+        
+    } catch (error : any){
+        return handleError(error);
+    }
 
 
 }

@@ -1,18 +1,20 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { handleError, UnexpectedFieldError, MissingFieldError } from "../../../common/utils/Validator";
-import { getHistoricalDataBetweenCommon } from "./getHistoricalDataBetweenDate";
-import { getHistoricalDataDayBetween } from "../../../common/services/repository/HistoricalDataRepository/DynamoHistoricalDayData";
+import { IncompleteBodyError, MissingFieldError, UnexpectedFieldError, handleError } from "../../../common/utils/Validator";
+import { getStationDataBetween } from "../../../common/services/repository/EstacionRepository/DynamoDataStationDB";
 
-export async function getBetweenHistoricalDataDayController(event: APIGatewayProxyEvent, tableName : string){
+
+
+
+export async function getBetweenStationDataController(event: APIGatewayProxyEvent, tableName : string){
   
   try{
     
     validateData(event);
 
-    const startDatadate = event.queryStringParameters!['startDay']!;;
-    const endDatadate = event.queryStringParameters!['endDay']!;
+    const startDatadate = event.queryStringParameters!['startDayTime']!;;
+    const endDatadate = event.queryStringParameters!['endDayTime']!;
     const stationId = event.queryStringParameters!['stationId']!;
-    const historicalDatasDay = await getHistoricalDataDayBetween(tableName, stationId!, startDatadate, endDatadate);
+    const historicalDatasDay = await getStationDataBetween(tableName, stationId!, startDatadate, endDatadate);
 
     return {
       statusCode: 200, 
@@ -29,9 +31,9 @@ export async function getBetweenHistoricalDataDayController(event: APIGatewayPro
 
 
 function validateData(event: APIGatewayProxyEvent) {
-  const allowedFields = ['stationId', 'startDay', 'endDay' ];
-  //Se espera YYYYMMDD año y mes.
-  const dataDateRegex = /^\d{8}$/;
+  const allowedFields = ['stationId', 'startDayTime', 'endDayTime' ];
+  //Se espera YYYYMMDDHHMMSS año y mes.
+  const dataDateRegex = /^\d{14}$/;
 
   const arg = event.queryStringParameters;
 
@@ -50,10 +52,11 @@ function validateData(event: APIGatewayProxyEvent) {
   }
 
   if (!arg.startDay || !dataDateRegex.test(arg.startDay)) {
-    throw new MissingFieldError('startDay');
+    throw new MissingFieldError('startDayTime');
   }
 
   if (!arg.endDay || !dataDateRegex.test(arg.endDay)) {
-    throw new MissingFieldError('endDay');
+    throw new MissingFieldError('endDayTime');
   }
 }
+
