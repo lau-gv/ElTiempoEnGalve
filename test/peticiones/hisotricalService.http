@@ -30,3 +30,7 @@ GET   {{endpoint}}/currentData?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba
 //Authorization: {{token}}
 x-api-key: {{api_key}}
 ###
+
+GET   {{endpoint}}/stationHistorical/between?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&startDayTime=20240101000000&endDayTime=20240101235959
+//Authorization: {{token}}
+x-api-key: {{api_key}}

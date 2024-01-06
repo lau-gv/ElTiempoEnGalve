@@ -51,11 +51,11 @@ function validateData(event: APIGatewayProxyEvent) {
     throw new MissingFieldError('stationId');
   }
 
-  if (!arg.startDay || !dataDateRegex.test(arg.startDay)) {
+  if (!arg.startDayTime || !dataDateRegex.test(arg.startDayTime)) {
     throw new MissingFieldError('startDayTime');
   }
 
-  if (!arg.endDay || !dataDateRegex.test(arg.endDay)) {
+  if (!arg.endDayTime || !dataDateRegex.test(arg.endDayTime)) {
     throw new MissingFieldError('endDayTime');
   }
 }
