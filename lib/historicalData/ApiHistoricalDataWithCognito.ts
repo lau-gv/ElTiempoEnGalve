@@ -1,22 +1,21 @@
-import { ApiKey, ApiKeySourceType, AuthorizationType, CognitoUserPoolsAuthorizer, LambdaIntegration, MethodOptions, RestApi, UsagePlan } from "aws-cdk-lib/aws-apigateway";
+import { AuthorizationType, CognitoUserPoolsAuthorizer, LambdaIntegration, MethodOptions, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
 import { Construct } from "constructs"
 import { join } from "path";
 import { Table } from "aws-cdk-lib/aws-dynamodb";
 import { IUserPool } from "aws-cdk-lib/aws-cognito";
-import { CfnOutput } from "aws-cdk-lib";
 
-export interface ApiHistoricalDataProps {
+export interface ApiHistoricalDataPropsWithCognito {
     stationDataTable: Table;
     stationHistoricalDayDataTable: Table;
     userPool : IUserPool;
 
   }
 
-export class ApiHistoricalData extends Construct {
+export class ApiHistoricalDataWithCognito extends Construct {
 
-    constructor(scope: Construct, id: string, props: ApiHistoricalDataProps){
+    constructor(scope: Construct, id: string, props: ApiHistoricalDataPropsWithCognito){
         super(scope, id);
 
         //Primero creamos las lambdas. Que son tres.
@@ -77,25 +76,23 @@ export class ApiHistoricalData extends Construct {
 
 
         //LA API
-        const api = new RestApi(this, 'ApiHistoricalData', {
-            apiKeySourceType: ApiKeySourceType.HEADER
-        }, );
+        const api = new RestApi(this, 'ApiHistoricalData', {});
 
-        //Queremos que las peticiones a la api usen key....
-        const apiKey = new ApiKey(this, 'ApiKeyHistoricalData')
+        //Los authorithers
+        /*const authorizer = new CognitoUserPoolsAuthorizer(this, 'HistoricalDataAuthorizer', {
+            cognitoUserPools:[props.userPool],
+            identitySource: 'method.request.header.Authorization'
+        });
+
+        authorizer._attachToApi(api);*/
+        /*
+        const optionWithauth : MethodOptions = {
+            authorizationType: AuthorizationType.COGNITO,
+            authorizer: {
+                authorizerId: authorizer.authorizerId
+            }
+        }*/
         
-        const usagePlan = new UsagePlan(this, 'UsagePlan', {
-            name: 'Usage Plan',
-            apiStages: [
-              {
-                api,
-                stage: api.deploymentStage,
-              },
-            ],
-          })
-
-        usagePlan.addApiKey(apiKey);
-          
         //Ahora creamos los recursos
         const rootResource = api.root;
         const historicalResource = rootResource.addResource('dayHistorical');
@@ -108,16 +105,21 @@ export class ApiHistoricalData extends Construct {
 
         const todayData = rootResource.addResource('currentData');
 
-        historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), {apiKeyRequired: true,});
-        historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), {apiKeyRequired: true,});
-        historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay), {apiKeyRequired: true,});
+        historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay));
+        historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay));
+        historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay));
         
-        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), {apiKeyRequired: true,});
+        historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay));
 
-        todayData.addMethod('GET', new LambdaIntegration(getCurrentData), {apiKeyRequired: true,});
-
-        new CfnOutput(this, 'API Key historical data ID', {
-            value: apiKey.keyId,
-          });
+        todayData.addMethod('GET', new LambdaIntegration(getCurrentData));
+        //CON AUTENTICACION DE COGNITO
+        //historicalDayResource.addMethod('GET', new LambdaIntegration(getTodayHistoricalDataDay), optionWithauth);
+        //historicalMonthResource.addMethod('GET', new LambdaIntegration(getMonthHistoricalDataDay), optionWithauth);
+        //historicalBetweenResource.addMethod('GET', new LambdaIntegration(getBetweenHistoricalDataDay), optionWithauth);
+        //
+        //historicalYearResource.addMethod('GET', new LambdaIntegration(getYearHistoricalDataDay), optionWithauth);
+        //
+        //todayData.addMethod('GET', new LambdaIntegration(getCurrentData), optionWithauth);
+        
     }
 }

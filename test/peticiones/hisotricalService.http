@@ -2,35 +2,32 @@
 @endpoint = https://20xdkazqh2.execute-api.eu-west-3.amazonaws.com/prod
 
 //El token caduca a la hora.
-<<<<<<< HEAD
 @token = eyJraWQiOiJpcmVXRFliblwvbmxsK1lidnRsT3hXQ1dDWHNENUlVc21lelVLMFZnZE90QT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3MTY5ODBhZS0wMGQxLTcwNjMtMzcwNC03ZDMwYzc5YmE2NDEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LXdlc3QtMy5hbWF6b25hd3MuY29tXC9ldS13ZXN0LTNfbXlkMTlaMWJxIiwiY29nbml0bzp1c2VybmFtZSI6ImxhdWxpZXR0Iiwib3JpZ2luX2p0aSI6IjkwOTZlNGFiLTU1MTktNGI5Ni1hM2M3LTUzNjI5NWQxY2YwMSIsImF1ZCI6IjI3N3UxbzFxN2Rja2dqN3U4cjFnZ3U3MHA3IiwiZXZlbnRfaWQiOiI3Y2IyZWFkYi05NDBlLTRiYmYtODU2YS0xMDZkOGQwNjkzYjMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTcwNDU0NTY1OCwiZXhwIjoxNzA0NTQ5MjU4LCJpYXQiOjE3MDQ1NDU2NTgsImp0aSI6ImNiODUxOWVmLTUxYjUtNDI4MC1hODc1LTgwNDEwNjc3NTE1YyIsImVtYWlsIjoibGF1cmFnaW1lbm9jcEBnbWFpbC5jb20ifQ.d1JpYs_YS_PEUfp1KDz7v8x6WtL8mpAnl-wpT5K1YTjNNrH2wFzQDR9ren1QdzHS5eBbOdbBQAxICH29WfchrulWTOdfB448esSO8NwKAJdMZ-17XgiPctbXvz5mJ2ldlRE8M3YWRy7Lg88tsKgxiogaW7GXM8QWx-5ZnJMnmU8yMOn9QRhAUeUr8_eaxHVpeTdOC915GonJZqGPleUVuA6Xu9UdtoaLGhUkDYxyQxi73kLY1uPIYr_DtYf6FF-sgMwjqq_J4-oVrG6rVkjLd77V9BEKbw-hPnE0PMUL4gW8TwqwRo2qLZMfStBw2lEXdBDbtCvVZGHmvPJMi60nhw
+@api_key = QGsp6aOd266twNNPwYdMF284JzyISKAsamSJI91V
 Authorization: {{token}}
-=======
-@token = eyJraWQiOiJpcmVXRFliblwvbmxsK1lidnRsT3hXQ1dDWHNENUlVc21lelVLMFZnZE90QT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3MTY5ODBhZS0wMGQxLTcwNjMtMzcwNC03ZDMwYzc5YmE2NDEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LXdlc3QtMy5hbWF6b25hd3MuY29tXC9ldS13ZXN0LTNfbXlkMTlaMWJxIiwiY29nbml0bzp1c2VybmFtZSI6ImxhdWxpZXR0Iiwib3JpZ2luX2p0aSI6Ijc1OTI2YTFhLTYwMjUtNGM5Ni1hMmViLWUxNGU5YTI0MjU4ZCIsImF1ZCI6IjI3N3UxbzFxN2Rja2dqN3U4cjFnZ3U3MHA3IiwiZXZlbnRfaWQiOiIzOTNkNDFiNC1jNTE3LTQyMGMtODVmNy1hZDJmNDg3OGJlM2EiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4Njc2NDYzMywiZXhwIjoxNjg2NzY4MjMzLCJpYXQiOjE2ODY3NjQ2MzMsImp0aSI6IjFkYTQ1ZDc1LWQ3OGItNDE0Yi05ODcyLTI2YjE4YWQ2ZmEzOCIsImVtYWlsIjoibGF1cmFnaW1lbm9jcEBnbWFpbC5jb20ifQ.iEfrKomRh7A4pqE-bUGX2TKY6M2W3FmhTGruNwmQe0e_5xYLnmCAm95OXUYfyBeoKrL6G19ejM4niYxDh_g31JK3IPDN2r_OXKaxrN-ql-OGIuHKn68iLm0kqCvwVTYRl9JRL0J_t8HBSgYPg_IdmdiSxBFzzZixVji56XJtrRj2OIgVjpo8HSzfjESlTlGOTFBwCrJM1YbijDLzBfOFg1Sc-lH9A0EVLTrKKhU2Ru6nTFd7C1IUd3vS7GUzlOYsBNFy77x_mHLv8Xt81uQShqYMV7ldzuPIBWqI7BNpztK9mE8S-zFsOP5VHnfpMy2Rpo3jFX3TKP7E4ElG4AgLcA
->>>>>>> da04b0281e953c8fd2d1a477a3ac7248d0b03321
 
 ###
 
 GET   {{endpoint}}/dayHistorical/day?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&datadate=20230611
-Authorization: {{token}}
-
+x-api-key: {{api_key}}
 ###
 GET   {{endpoint}}/dayHistorical/month?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&datadate=202305
-Authorization: {{token}}
+x-api-key: {{api_key}}
+//Authorization: {{token}}
 
 ###
 
 GET   {{endpoint}}/dayHistorical/between?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&startDay=20230801&endDay=20230614
-Authorization: {{token}}
-
+//Authorization: {{token}}
+x-api-key: {{api_key}}
 ###
 
 GET   {{endpoint}}/monthHistorical/year?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba&datadate=2023
-Authorization: {{token}}
-
+//Authorization: {{token}}
+x-api-key: {{api_key}}
 ###
 
 GET   {{endpoint}}/currentData?stationId=bd5c8a71-037b-41ee-801f-be1ef7381eba
-Authorization: {{token}}
-
+//Authorization: {{token}}
+x-api-key: {{api_key}}
 ###
