@@ -15,8 +15,6 @@ export interface ApiHistoricalDataProps {
 
 export class ApiHistoricalData extends Construct {
 
-
-
     constructor(scope: Construct, id: string, props: ApiHistoricalDataProps){
         super(scope, id);
 

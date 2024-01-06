@@ -37,22 +37,29 @@ export async function receiveData(event: APIGatewayProxyEvent, queueDataUrl: str
 export function getTimeInSpain(): string {
 
     const date = new Date();
-    const currentTime = date.toLocaleString('es-ES', {
-            timeZone: 'Europe/Madrid',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-    }).replace(/:|\s/g, '');
-    const month = (date.getMonth()+ 1).toString().length !=2 
-        ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`
-    
-    const day = (date.getDate()).toString().length !=2 
-    ? `0${date.getDate()}` : `${date.getDate()}`
-    
-    //const month = ((date.getMonth()+1).length != 2 ? "0" + (date.getMonth() + 1) : (date.getMonth()+1))
-    const currentDate = `${date.getFullYear()}${month}${day}`;
-    return `${currentDate}${currentTime}`;
+  const timeZone = 'Europe/Madrid';
+
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  };
+
+  const formattedDate = date.toLocaleString('es-ES', options).replace(/\/|,|:|\s/g, '');
+  const day = formattedDate.substring(0, 2);
+  const month = formattedDate.substring(2, 4);
+  const year = formattedDate.substring(4, 8);
+  const hour = formattedDate.substring(8, 10);
+  const min = formattedDate.substring(10, 12);
+  const sec = formattedDate.substring(12, 14);
+  //0DD 2MM 4 YYYY 9HH 11 MM 13 SS15
+
+  return `${year}${month}${day}${hour}${min}${sec}` ;
 }
 
 function getItemData(event: APIGatewayProxyEvent) {

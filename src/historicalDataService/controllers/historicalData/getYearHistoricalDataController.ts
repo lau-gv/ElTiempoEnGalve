@@ -6,7 +6,7 @@ export async function getYearHistoricalData(event: APIGatewayProxyEvent, tableNa
   
   try{
     const historicalDatasDay =  await getHistoricalDataBetweenCommon(event, tableName, validateData, returnStartDate, returnEndDate);
-    console.log(historicalDatasDay);
+    //console.log(historicalDatasDay);
     //var result : Map<number, HistoricalDataMonth>;
     var result : HistoricalDataMonth[];
     if(historicalDatasDay){
@@ -58,7 +58,7 @@ function validateData(event: APIGatewayProxyEvent) {
   }
 
   if (!arg.datadate || !dataDateRegex.test(arg.datadate)) {
-    throw new MissingFieldError('month');
+    throw new MissingFieldError('year');
   }
 }
 
@@ -75,11 +75,11 @@ function calculateMaxMinsByMonth(historicalDatasDay : HistoricalDataDay[]): Hist
     actualHistoricalDataDay 
       ? map.set(month, getMaxMin(actualHistoricalDataDay, element))
       : map.set(month, historicalDataDayToHistoricalDataMonth(element));
-    console.log(`estamos en la iteración: ${i} y el mes es: ${month} `);
+    //console.log(`estamos en la iteración: ${i} y el mes es: ${month} `);
     const prueba : HistoricalDataMonth = map.get(month)!;
-    console.log(prueba);
-    console.log(map.size);
-    console.log(actualHistoricalDataDay);
+    //console.log(prueba);
+    //console.log(map.size);
+    //console.log(actualHistoricalDataDay);
   });
 
   return Array.from(map.values());;
