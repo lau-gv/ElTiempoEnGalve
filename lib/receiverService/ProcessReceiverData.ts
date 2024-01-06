@@ -28,7 +28,7 @@ export class ProcessReceiverData extends Construct {
       const authorizeStationLambda = new NodejsFunction(scope, 'AuthorizeStationLambda', {
           runtime: Runtime.NODEJS_18_X,
           handler: 'handler',
-          entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'authorizeStation.ts')),
+          entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'AuthorizeStationLambda.ts')),
           environment: {
             TABLE_NAME: props.stationTable.tableName,
             }
@@ -37,7 +37,7 @@ export class ProcessReceiverData extends Construct {
       const insertStationDataLambda = new NodejsFunction(scope, 'InsertStationDataLambda', {
           runtime: Runtime.NODEJS_18_X,
           handler: 'handler',
-          entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'insertData.ts')),
+          entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'InsertDataLambda.ts')),
           environment: {
             TABLE_NAME: props.stationDataTable.tableName,
           }
@@ -47,7 +47,7 @@ export class ProcessReceiverData extends Construct {
       const updateHistoricalDataDay = new NodejsFunction(scope, 'UpdateHistoricalDataDay', {
         runtime: Runtime.NODEJS_18_X,
         handler: 'handler',
-        entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'updateHistoricalDataDay.ts')),
+        entry: (join(__dirname, '..','..', 'src', 'receiverService', 'lambdas', 'UpdateHistoricalDataDayLambda.ts')),
         environment: {
           TABLE_NAME: props.stationHistoricalDayDataTable.tableName,
         }

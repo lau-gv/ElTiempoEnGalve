@@ -7,6 +7,7 @@ import { UserServiceStack } from '../lib/userStationService/UserServiceStack';
 import { DomainStack } from '../lib/domain/domainStack';
 import { AuthStack } from '../lib/AuthStack/AuthStak';
 import { HistoricalDataStack } from '../lib/historicalData/HistoricalDataStack';
+import { MigratorDataStack } from '../lib/migratorData/MigratorDataStack';
 
 const app = new cdk.App();
 const databaseStack = new DynamoDBTablesStack(app, 'DynamoDBTableStack');
@@ -31,6 +32,13 @@ const apiHistoricalData = new HistoricalDataStack(app, 'HistoricalServiceStack',
   stationHistoricalDayDataTable: databaseStack.stationHistoricalDayDataTable,
   userPool: authorizerStack.userPool,
 })
+
+const migrator = new MigratorDataStack(app, 'MigratorServiceStack', {
+  stationDataTable: databaseStack.stationDataTable,
+  stationHistoricalDayDataTable: databaseStack.stationHistoricalDayDataTable,
+})
+
+
 
 /* No me dejan comprar un dominio para probar la correcta configuración de mi certificado hasta que no haga algo 
 que no se qué es exactamente y, como cuesta pasta, no lo voy a arreglar todavía. Pero aquí conste
