@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, Context } from "aws-lambda";
 
-import { getBetweenStationDataController } from "../controllers/stationData/getHistoricalDataBetweenDate";
+import { getBetweenStationDataController } from "../controllers/stationData/getStationDataBetweenDate";
 
 const TABLE_NAME = process.env.TABLE_NAME || '';
 
